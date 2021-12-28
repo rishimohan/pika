@@ -8,8 +8,6 @@ export default function Home() {
         <title>Pika – Create beautiful screenshots quickly</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      
       <Main />
     </>
   );
