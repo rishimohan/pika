@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import domtoimage from "dom-to-image";
 import toast from "react-hot-toast";
 import classnames from "classnames";
-import { SaveIcon, ClipboardIcon, TwitterIcon, GithubIcon } from "ui/icons";
+import { SaveIcon, ClipboardIcon,PasteIcon, TwitterIcon, GithubIcon } from "ui/icons";
 
 export default function Main() {
   const wrapperRef = useRef();
@@ -149,7 +149,7 @@ export default function Main() {
       <div className="fixed top-0 left-0 flex items-center justify-center w-full">
         <div
           className={classnames(
-            "duration-300 ease-in-out inline-flex px-8 py-3 mt-10 space-x-8 border border-gray-400 shadow-xl bg-gray-400/30 dark:bg-gray-700/60 backdrop-blur rounded-xl dark:border-gray-400/60 shadow-gray-500/20 dark:shadow-black/20"
+            "duration-300 ease-in-out inline-flex px-8 py-3 mt-10 space-x-8 border border-gray-400/70 shadow-xl bg-gray-100/80 dark:bg-gray-700/60 backdrop-blur rounded-xl dark:border-gray-500/90 shadow-gray-600/20 dark:shadow-black/10"
           )}
         >
           <div className="">
@@ -250,14 +250,14 @@ export default function Main() {
           </div>
           <div className="flex items-center justify-between pl-10 space-x-5">
             <div
-              className="flex items-center justify-center px-4 py-2 hover:scale-[1.03] duration-200 text-lg font-semibold text-green-600 bg-green-200 rounded-lg shadow cursor-pointer"
+              className="flex items-center justify-center px-4 py-2 hover:scale-[1.03] duration-200 text-lg font-semibold text-green-600 bg-green-200 rounded-lg shadow cursor-pointer border border-green-600"
               onClick={copyImage}
             >
               <span className="w-6 h-6 mr-2">{ClipboardIcon}</span>
               Copy
             </div>
             <div
-              className="flex items-center justify-center px-4 py-2 hover:scale-[1.03] duration-200 text-lg font-semibold text-indigo-600 bg-indigo-200 rounded-lg shadow cursor-pointer"
+              className="flex items-center justify-center px-4 py-2 hover:scale-[1.03] duration-200 text-lg font-semibold text-indigo-600 bg-indigo-200 rounded-lg shadow cursor-pointer border border-indigo-600"
               onClick={saveImage}
             >
               <span className="w-6 h-6 mr-2">{SaveIcon}</span>
@@ -269,42 +269,43 @@ export default function Main() {
     );
   }
 
+  const RenderMaker = () => (
+    <div className="flex pt-20 mt-auto text-sm">
+      <a
+        href="https://twitter.com/thelifeofrishi"
+        target="_blank"
+        className="flex items-center hover:underline"
+      >
+        <span className="w-5 h-5 mx-1">{TwitterIcon}</span>
+        Created by Rishi Mohan
+      </a>
+      <span className="px-2">-</span>
+      <a
+        href="https://github.com/rishimohan/pika"
+        target="_blank"
+        className="flex items-center hover:underline"
+      >
+        <span className="w-5 h-5 mx-1">{GithubIcon}</span>
+        View Code on Github
+      </a>
+    </div>
+  );
+
   return (
     <div
-      className="flex items-center justify-center h-full min-h-screen p-10 pt-20 bg-gradient-to-br from-red-600/20 via-pink-600/20 to-blue-500/40 dark:from-slate-400 dark:via-slate-500 dark:to-slate-700 backdrop-blur-xl"
+      className="flex flex-col items-center justify-center h-full min-h-screen p-10 pt-20"
       onPaste={onPaste}
     >
-      <div className="absolute top-0 z-10 flex pt-2 text-sm opacity-30 hover:opacity-100 dark:text-white">
-        <a
-          href="https://twitter.com/thelifeofrishi"
-          target="_blank"
-          className="flex items-center hover:underline"
-        >
-          <span className="w-5 h-5 mx-1">{TwitterIcon}</span>
-          Created by Rishi Mohan
-        </a>
-        <span className="px-2">-</span>
-        <a
-          href="https://github.com/rishimohan/pika"
-          target="_blank"
-          className="flex items-center hover:underline"
-        >
-          <span className="w-5 h-5 mx-1">{GithubIcon}</span>
-          View Code on Github
-        </a>
-      </div>
       {blob?.src ? (
         <div
           ref={(el) => (wrapperRef.current = el)}
           style={blob?.w ? { width: blob?.w / window.devicePixelRatio } : {}}
-          className={
-            "shadow-xl duration-300 relative ease-in-out flex items-center justify-center overflow-hidden min-w-[1000px] max-w-[80vw] mt-20 rounded-lg " +
-            options?.theme +
-            " " +
-            options?.aspectRatio +
-            " " +
+          className={classnames(
+            "shadow-xl duration-300 relative ease-in-out flex items-center justify-center overflow-hidden min-w-[1000px] max-w-[80vw] mt-20 rounded-lg",
+            options?.theme,
+            options?.aspectRatio,
             options?.padding
-          }
+          )}
         >
           <img
             src={blob?.src}
@@ -319,11 +320,13 @@ export default function Main() {
           />
         </div>
       ) : (
-        <span className="text-2xl opacity-50 dark:text-white">
+        <div className="flex flex-col items-center justify-center min-h-[60vh] text-xl opacity-30 select-none max-w-[550px] rounded-2xl p-10 mt-20 text-center">
+          <span className="w-6 h-6 mb-2">{PasteIcon}</span>
           Paste your screenshot(Cmd/Ctrl+V) to get started
-        </span>
+        </div>
       )}
       {renderOptions()}
+      <RenderMaker />
     </div>
   );
 }
