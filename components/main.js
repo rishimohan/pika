@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import domtoimage from "dom-to-image";
 
 export default function Main() {
@@ -12,6 +12,18 @@ export default function Main() {
     shadow: "shadow-none",
     
   });
+
+  useEffect(() => {
+    const preset = localStorage.getItem("options");
+    if(preset) {
+      console.log("Preset exists", JSON.parse(preset))
+      setOptions(JSON.parse(preset));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("options", JSON.stringify(options));
+  }, [options])
 
   const snapshotCreator = () => {
     return new Promise((resolve, reject) => {
@@ -241,7 +253,7 @@ export default function Main() {
 
   return (
     <div
-      className="flex items-center justify-center h-full min-h-screen p-10 bg-gradient-to-br from-[rgb(214, 255, 245)] via-[rgb(200, 235, 232)] to-[rgb(166, 238, 255)]"
+      className="flex items-center justify-center h-full min-h-screen p-10 bg-gradient-to-br from-red-600/20 via-pink-600/20 to-blue-500/40 backdrop-blur-xl"
       onPaste={onPaste}
     >
       {blob?.src ? (
