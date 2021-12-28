@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import domtoimage from "dom-to-image";
+import toast from "react-hot-toast";
+import classnames from "classnames";
+import {SaveIcon, ClipboardIcon} from "ui/icons";
 
 export default function Main() {
   const wrapperRef = useRef();
@@ -51,6 +54,7 @@ export default function Main() {
   };
 
   const saveImage = async () => {
+    let savingToast = toast.loading('Exporting image...')
     const scale = window.devicePixelRatio;
     domtoimage.toPng(wrapperRef.current, {
       height: wrapperRef.current.offsetHeight * scale,
@@ -68,6 +72,7 @@ export default function Main() {
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
+      toast.success("Image exported!", { id: savingToast });
     });
   }
 
@@ -92,10 +97,10 @@ export default function Main() {
             }),
           }),
         ])
-        .then(() => console.log("Copied!"))
+        .then(() => toast.success('Image copied to clipboard'))
         .catch((err) =>
           // Error
-          console.error("Error:", err)
+          toast.success(err)
         );
     } else if (isNotFirefox) {
       navigator?.permissions
@@ -142,13 +147,18 @@ export default function Main() {
   const renderOptions = () => {
     return (
       <div className="fixed top-0 left-0 flex items-center justify-center w-full">
-        <div className="inline-flex px-8 py-3 mt-10 space-x-8 border border-gray-400 shadow-xl bg-gray-400/50 dark:bg-gray-700/60 backdrop-blur rounded-xl dark:border-gray-500 shadow-gray-600/20 dark:shadow-black/20">
+        <div
+          className={classnames(
+            "duration-300 ease-in-out inline-flex px-8 py-3 mt-10 space-x-8 border border-gray-400 shadow-xl bg-gray-400/50 dark:bg-gray-700/60 backdrop-blur rounded-xl dark:border-gray-500 shadow-gray-600/20 dark:shadow-black/20"
+          )}
+        >
           <div className="">
             <div className="pb-2 text-sm font-semibold dark:text-white">
               Aspect Ratio
             </div>
             <div>
               <select
+                value={options.aspectRatio}
                 className="px-2 py-1 border border-gray-500 rounded-lg shadow appearance-none cursor-pointer opacity-90 hover:opacity-100"
                 onChange={(e) =>
                   setOptions({ ...options, aspectRatio: e.target.value })
@@ -165,6 +175,7 @@ export default function Main() {
             </div>
             <div>
               <select
+                value={options.padding}
                 className="px-2 py-1 border border-gray-500 rounded-lg shadow appearance-none cursor-pointer opacity-90 hover:opacity-100"
                 onChange={(e) =>
                   setOptions({ ...options, padding: e.target.value })
@@ -185,8 +196,9 @@ export default function Main() {
               {[
                 "bg-white",
                 "bg-black",
-                "bg-gradient-to-br from-red-500 to-pink-600",
-                "bg-gradient-to-br from-green-100 to-yellow-100",
+                "bg-gradient-to-br from-pink-300 via-orange-200 to-red-300",
+                "bg-gradient-to-br from-green-100 via-green-300 to-yellow-100",
+                "bg-gradient-to-br from-green-200 via-blue-200 to-blue-300",
               ].map((theme) => (
                 <div
                   key={theme}
@@ -204,6 +216,7 @@ export default function Main() {
             </div>
             <div>
               <select
+                value={options.rounded}
                 className="px-2 py-1 border border-gray-500 rounded-lg shadow appearance-none cursor-pointer opacity-90 hover:opacity-100"
                 onChange={(e) =>
                   setOptions({ ...options, rounded: e.target.value })
@@ -222,6 +235,7 @@ export default function Main() {
             </div>
             <div>
               <select
+                value={options.shadow}
                 className="px-2 py-1 border border-gray-500 rounded-lg shadow appearance-none cursor-pointer opacity-90 hover:opacity-100"
                 onChange={(e) =>
                   setOptions({ ...options, shadow: e.target.value })
@@ -234,17 +248,21 @@ export default function Main() {
               </select>
             </div>
           </div>
-          <div
-            className="flex items-center justify-center px-4 text-xl font-semibold text-green-600 bg-green-200 rounded-lg shadow cursor-pointer"
-            onClick={copyImage}
-          >
-            Copy
-          </div>
-          <div
-            className="flex items-center justify-center px-4 text-xl font-semibold text-indigo-600 bg-indigo-200 rounded-lg shadow cursor-pointer"
-            onClick={saveImage}
-          >
-            Save
+          <div className="flex items-center justify-between pl-10 space-x-5">
+            <div
+              className="flex items-center justify-center px-4 py-2 hover:scale-[1.03] duration-200 text-lg font-semibold text-green-600 bg-green-200 rounded-lg shadow cursor-pointer"
+              onClick={copyImage}
+            >
+              <span className="w-6 h-6 mr-2">{ClipboardIcon}</span>
+              Copy
+            </div>
+            <div
+              className="flex items-center justify-center px-4 py-2 hover:scale-[1.03] duration-200 text-lg font-semibold text-indigo-600 bg-indigo-200 rounded-lg shadow cursor-pointer"
+              onClick={saveImage}
+            >
+              <span className="w-6 h-6 mr-2">{SaveIcon}</span>
+              Save
+            </div>
           </div>
         </div>
       </div>
@@ -253,7 +271,7 @@ export default function Main() {
 
   return (
     <div
-      className="flex items-center justify-center h-full min-h-screen p-10 bg-gradient-to-br from-red-600/20 via-pink-600/20 to-blue-500/40 backdrop-blur-xl"
+      className="flex items-center justify-center h-full min-h-screen p-10 pt-20 bg-gradient-to-br from-red-600/20 via-pink-600/20 to-blue-500/40 dark:from-slate-400 dark:via-slate-500 dark:to-slate-700 backdrop-blur-xl"
       onPaste={onPaste}
     >
       {blob?.src ? (
@@ -261,7 +279,7 @@ export default function Main() {
           ref={(el) => (wrapperRef.current = el)}
           style={blob?.w ? { width: blob?.w / window.devicePixelRatio } : {}}
           className={
-            "shadow-xl duration-300 relative ease-in-out flex items-center justify-center max-w-[80vw] mt-20 rounded-3xl " +
+            "shadow-xl duration-300 relative ease-in-out flex items-center justify-center overflow-hidden min-w-[1000px] max-w-[80vw] mt-20 rounded-lg " +
             options?.theme +
             " " +
             options?.aspectRatio +
@@ -271,7 +289,7 @@ export default function Main() {
         >
           <img
             src={blob?.src}
-            className={`${options?.shadow} ${options?.rounded}`}
+            className={`relative duration-300 ease-in-out ${options?.shadow} ${options?.rounded}`}
             onLoad={(e) => {
               setBlob({
                 ...blob,
@@ -282,8 +300,8 @@ export default function Main() {
           />
         </div>
       ) : (
-        <span className="text-3xl opacity-50">
-          Paste your screenshot, or click to upload
+        <span className="text-2xl opacity-50 dark:text-white">
+          Paste your screenshot(Cmd/Ctrl+V) to get started
         </span>
       )}
       {renderOptions()}
