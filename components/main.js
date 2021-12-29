@@ -19,7 +19,6 @@ export default function Main() {
   useEffect(() => {
     const preset = localStorage.getItem("options");
     if(preset) {
-      console.log("Preset exists", JSON.parse(preset))
       setOptions(JSON.parse(preset));
     }
   }, []);
@@ -54,6 +53,9 @@ export default function Main() {
   };
 
   const saveImage = async () => {
+    if (window.pirsch) {
+      pirsch("🎉 Screenshot saved");
+    }
     let savingToast = toast.loading('Exporting image...')
     const scale = window.devicePixelRatio;
     domtoimage.toPng(wrapperRef.current, {
@@ -81,6 +83,9 @@ export default function Main() {
       navigator?.userAgent
     );
     const isNotFirefox = navigator.userAgent.indexOf("Firefox") < 0;
+    if (window.pirsch) {
+      pirsch("🙌 Screenshot copied");
+    }
 
     if (isSafari) {
       navigator.clipboard
