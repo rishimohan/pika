@@ -53,6 +53,10 @@ export default function Main() {
   };
 
   const saveImage = async () => {
+    if (!blob?.src) {
+      toast.error("Nothing to save, make sure to add a screenshot first!");
+      return;
+    }
     if (window.pirsch) {
       pirsch("🎉 Screenshot saved");
     }
@@ -68,17 +72,32 @@ export default function Main() {
         height: wrapperRef.current.offsetHeight + "px",
       },
     }).then(async data => {
-      var a = document.createElement("A");
-      a.href = data;
-      a.download = `pika-1.png`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      toast.success("Image exported!", { id: savingToast });
+      domtoimage.toPng(wrapperRef.current, {
+        height: wrapperRef.current.offsetHeight * scale,
+        width: wrapperRef.current.offsetWidth * scale,
+        style: {
+          transform: "scale(" + scale + ")",
+          transformOrigin: "top left",
+          width: wrapperRef.current.offsetWidth + "px",
+          height: wrapperRef.current.offsetHeight + "px",
+        },
+      }).then(async data => {
+        var a = document.createElement("A");
+        a.href = data;
+        a.download = `pika-1.png`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        toast.success("Image exported!", { id: savingToast });
+      });
     });
   }
 
   const copyImage = () => {
+    if(!blob?.src) {
+      toast.error("Nothing to copy, make sure to add a screenshot first!");
+      return
+    }
     const isSafari = /^((?!chrome|android).)*safari/i.test(
       navigator?.userAgent
     );
