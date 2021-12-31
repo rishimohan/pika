@@ -106,13 +106,13 @@ function MyApp({ Component, pageProps }) {
             type="text/javascript"
             src="https://api.pirsch.io/pirsch-events.js"
             id="pirscheventsjs"
-            data-code="Q8OOuNBKbjLceJ8lH0wiHpficG4R77XI"
+            data-code="kaScBB3dGIMhydL8olxpevpomMoFywp1"
             strategy="afterInteractive"
           />
           <Script
             src="https://api.pirsch.io/pirsch.js"
             id="pirschjs"
-            data-code="Q8OOuNBKbjLceJ8lH0wiHpficG4R77XI"
+            data-code="kaScBB3dGIMhydL8olxpevpomMoFywp1"
             strategy="afterInteractive"
           />
         </>
