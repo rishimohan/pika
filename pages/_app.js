@@ -16,9 +16,9 @@ function MyApp({ Component, pageProps }) {
           name="description"
           content="A free app to quickly beautify your screenshots. You can add background gradients, tweak shadows, add rounded corners and more. You can save the image or copy it to clipboard."
         />
-        <link rel="canonical" href="https://pikapika.vercel.app" />
+        <link rel="canonical" href="https://pika.rishimohan.me" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://pikapika.vercel.app" />
+        <meta property="og:url" content="https://pika.rishimohan.me" />
         <meta
           property="og:title"
           content="Pika – Create beautiful screenshots quickly"
@@ -29,10 +29,10 @@ function MyApp({ Component, pageProps }) {
         />
         <meta
           property="og:image"
-          content="https://pikapika.vercel.app/meta-image.png"
+          content="https://pika.rishimohan.me/meta-image.png"
         />
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://pikapika.vercel.app" />
+        <meta property="twitter:url" content="https://pika.rishimohan.me" />
         <meta
           property="twitter:title"
           content="Pika – Create beautiful screenshots quickly"
@@ -43,7 +43,7 @@ function MyApp({ Component, pageProps }) {
         />
         <meta
           property="twitter:image"
-          content="https://pikapika.vercel.app/meta-image.png"
+          content="https://pika.rishimohan.me/meta-image.png"
         />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin={true} />

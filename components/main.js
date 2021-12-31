@@ -328,7 +328,8 @@ export default function Main() {
             "shadow-xl duration-300 relative ease-in-out flex items-center justify-center overflow-hidden min-w-[1000px] max-w-[80vw] mt-20 rounded-lg",
             options?.theme,
             options?.aspectRatio,
-            options?.padding
+            options?.padding,
+            options?.rounded
           )}
         >
           <img
