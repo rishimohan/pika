@@ -351,7 +351,7 @@ export default function Main() {
   }
 
   const RenderMaker = () => (
-    <div className="flex pt-20 mt-auto text-sm">
+    <div className="flex pt-20 mt-auto text-sm dark:text-gray-400">
       <a
         href="https://twitter.com/thelifeofrishi"
         target="_blank"
@@ -374,7 +374,7 @@ export default function Main() {
 
   return (
     <div
-      className="flex flex-col items-center justify-center h-full min-h-screen p-10 pt-48"
+      className="flex flex-col items-center justify-center h-full min-h-screen p-10 pt-48 dark:bg-gray-900"
       onPaste={onPaste}
     >
       {blob?.src ? (
@@ -422,7 +422,7 @@ export default function Main() {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center min-h-[60vh] text-xl opacity-30 select-none max-w-[550px] rounded-2xl p-10 mt-20 text-center">
+        <div className="flex flex-col items-center justify-center min-h-[60vh] text-xl opacity-30 select-none max-w-[550px] rounded-2xl p-10 mt-20 text-center dark:text-white">
           <span className="w-6 h-6 mb-2">{PasteIcon}</span>
           Paste your screenshot(Cmd/Ctrl+V) to get started
         </div>
