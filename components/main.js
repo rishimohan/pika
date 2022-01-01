@@ -183,7 +183,7 @@ export default function Main() {
             <div>
               <select
                 value={options.aspectRatio}
-                className="px-2 py-1 border border-gray-500 rounded-lg shadow appearance-none cursor-pointer opacity-90 hover:opacity-100"
+                className="px-2 py-1 border border-gray-500 rounded-lg shadow-lg appearance-none cursor-pointer opacity-80 hover:opacity-100"
                 onChange={(e) =>
                   setOptions({ ...options, aspectRatio: e.target.value })
                 }
@@ -200,7 +200,7 @@ export default function Main() {
             <div>
               <select
                 value={options.padding}
-                className="px-2 py-1 border border-gray-500 rounded-lg shadow appearance-none cursor-pointer opacity-90 hover:opacity-100"
+                className="px-2 py-1 border border-gray-500 rounded-lg shadow-lg appearance-none cursor-pointer opacity-80 hover:opacity-100"
                 onChange={(e) =>
                   setOptions({ ...options, padding: e.target.value })
                 }
@@ -244,7 +244,7 @@ export default function Main() {
             <div>
               <select
                 value={options.rounded}
-                className="px-2 py-1 border border-gray-500 rounded-lg shadow appearance-none cursor-pointer opacity-90 hover:opacity-100"
+                className="px-2 py-1 border border-gray-500 rounded-lg shadow-lg appearance-none cursor-pointer opacity-80 hover:opacity-100"
                 onChange={(e) =>
                   setOptions({ ...options, rounded: e.target.value })
                 }
@@ -258,12 +258,12 @@ export default function Main() {
           </div>
           <div className="">
             <div className="pb-2 text-sm font-semibold dark:text-white">
-              Screenshot position
+              Screenshot Position
             </div>
             <div>
               <select
                 value={options.position}
-                className="px-2 py-1 border border-gray-500 rounded-lg shadow appearance-none cursor-pointer opacity-90 hover:opacity-100"
+                className="px-2 py-1 border border-gray-500 rounded-lg shadow-lg appearance-none cursor-pointer opacity-80 hover:opacity-100"
                 onChange={(e) =>
                   setOptions({ ...options, position: e.target.value })
                 }
@@ -283,7 +283,7 @@ export default function Main() {
             <div>
               <select
                 value={options.shadow}
-                className="px-2 py-1 border border-gray-500 rounded-lg shadow appearance-none cursor-pointer opacity-90 hover:opacity-100"
+                className="px-2 py-1 border border-gray-500 rounded-lg shadow-lg appearance-none cursor-pointer opacity-80 hover:opacity-100"
                 onChange={(e) =>
                   setOptions({ ...options, shadow: e.target.value })
                 }
