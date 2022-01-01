@@ -153,12 +153,12 @@ export default function Main() {
 
 
   const onPaste = event => {
-    var items = (event.clipboardData || event.originalEvent.clipboardData).items;
+    var items = (event?.clipboardData || event?.originalEvent?.clipboardData)?.items || event?.target?.files;
     var index = 0;
     for (index in items) {
       var item = items[index];
-      if (item.kind === 'file') {
-        var blob = item.getAsFile();
+      if (item.kind === 'file' || item?.type?.includes("image")) {
+        var blob = item?.kind ? item.getAsFile() : item;
         var reader = new FileReader();
         reader.onload = function(event){
           setBlob({...blob, src: event.target.result});
@@ -225,7 +225,9 @@ export default function Main() {
                 "bg-gradient-to-br from-green-200 via-blue-200 to-blue-300",
                 "bg-gradient-to-br from-indigo-400 via-blue-400 to-purple-600",
                 "bg-gradient-to-br from-red-400 via-organge-500 to-yellow-200",
-                "bg-gradient-to-br from-pink-400 via-pin-500 to-red-300",
+                "bg-gradient-to-br from-pink-400 via-pink-500 to-red-300",
+                "bg-gradient-to-br from-slate-400 via-gray-600 to-gray-800",
+                "bg-gradient-to-br from-orange-300 via-orange-400 to-gray-700",
               ].map((theme) => (
                 <div
                   key={theme}
@@ -422,9 +424,21 @@ export default function Main() {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center min-h-[60vh] text-xl opacity-30 select-none max-w-[550px] rounded-2xl p-10 mt-20 text-center dark:text-white">
-          <span className="w-6 h-6 mb-2">{PasteIcon}</span>
-          Paste your screenshot(Cmd/Ctrl+V) to get started
+        <div className="flex items-center justify-center min-h-[70vh]">
+          <label
+            className="flex flex-col items-center justify-center text-xl opacity-30 select-none max-w-[550px] rounded-2xl p-10 mt-20 text-center dark:text-white cursor-pointer border-2 border-dashed border-gray-400 hover:opacity-50 duration-300"
+            htmlFor="imagesUpload"
+          >
+            <input
+              className="hidden"
+              id="imagesUpload"
+              type="file"
+              onChange={onPaste}
+            />
+            <span className="w-6 h-6 mb-2">{PasteIcon}</span>
+            <p>Paste your screenshot(Cmd/Ctrl+V) </p>
+            <p>or click to add one</p>
+          </label>
         </div>
       )}
       {renderOptions()}
