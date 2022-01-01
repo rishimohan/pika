@@ -317,7 +317,7 @@ export default function Main() {
 
   return (
     <div
-      className="flex flex-col items-center justify-center h-full min-h-screen p-10 pt-20"
+      className="flex flex-col items-center justify-center h-full min-h-screen p-10 pt-40"
       onPaste={onPaste}
     >
       {blob?.src ? (
@@ -325,7 +325,7 @@ export default function Main() {
           ref={(el) => (wrapperRef.current = el)}
           style={blob?.w ? { width: blob?.w / window.devicePixelRatio } : {}}
           className={classnames(
-            "shadow-xl duration-300 relative ease-in-out flex items-center justify-center overflow-hidden min-w-[1000px] max-w-[80vw] mt-20 rounded-lg",
+            "shadow-xl duration-300 relative ease-in-out flex items-center justify-center overflow-hidden min-w-[1000px] max-w-[80vw] rounded-lg",
             options?.theme,
             options?.aspectRatio,
             options?.padding,
