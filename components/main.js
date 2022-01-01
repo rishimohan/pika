@@ -216,17 +216,20 @@ export default function Main() {
             <div className="pb-2 text-sm font-semibold dark:text-white">
               Background
             </div>
-            <div className="flex items-center justify-center space-x-2">
+            <div className="flex items-center justify-start max-w-[200px] flex-wrap">
               {[
                 "bg-white",
                 "bg-black",
                 "bg-gradient-to-br from-pink-300 via-orange-200 to-red-300",
-                "bg-gradient-to-br from-green-100 via-green-300 to-yellow-100",
+                "bg-gradient-to-br from-green-200 via-yellow-100 to-green-200",
                 "bg-gradient-to-br from-green-200 via-blue-200 to-blue-300",
+                "bg-gradient-to-br from-indigo-400 via-blue-400 to-purple-600",
+                "bg-gradient-to-br from-red-400 via-organge-500 to-yellow-300",
+                "bg-gradient-to-br from-pink-400 via-pin-500 to-red-300",
               ].map((theme) => (
                 <div
                   key={theme}
-                  className={`cursor-pointer w-10 h-10 rounded-full ${theme}`}
+                  className={`cursor-pointer shadow-xl mr-2 mb-2 shadow-gray-500/20 w-7 h-7 rounded-full ${theme}`}
                   onClick={() => {
                     setOptions({ ...options, theme: theme });
                   }}
@@ -317,7 +320,7 @@ export default function Main() {
 
   return (
     <div
-      className="flex flex-col items-center justify-center h-full min-h-screen p-10 pt-40"
+      className="flex flex-col items-center justify-center h-full min-h-screen p-10 pt-48"
       onPaste={onPaste}
     >
       {blob?.src ? (
