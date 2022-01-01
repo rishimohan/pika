@@ -2,7 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import domtoimage from "dom-to-image";
 import toast from "react-hot-toast";
 import classnames from "classnames";
-import { SaveIcon, ClipboardIcon,PasteIcon, TwitterIcon, GithubIcon } from "ui/icons";
+import {
+  ResetIcon,
+  SaveIcon,
+  ClipboardIcon,
+  PasteIcon,
+  TwitterIcon,
+  GithubIcon,
+} from "ui/icons";
 
 export default function Main() {
   const wrapperRef = useRef();
@@ -380,53 +387,62 @@ export default function Main() {
       onPaste={onPaste}
     >
       {blob?.src ? (
-        <div
-          className={`${options?.rounded} overflow-hidden shadow-xl duration-200 ease-in-out`}
-        >
+        <>
           <div
-            ref={(el) => (wrapperRef.current = el)}
-            className={classnames(
-              "transition-all duration-200 relative ease-in-out flex items-center justify-center overflow-hidden max-w-[80vw] rounded-lg",
-              options?.theme,
-              options?.aspectRatio,
-              options?.padding,
-              options?.position
-            )}
+            className={`${options?.rounded} overflow-hidden shadow-xl duration-200 ease-in-out`}
           >
-            {options?.noise ? (
-              <div
-                style={{ backgroundImage: `url("/noise.svg")` }}
-                className={`absolute inset-0 w-full h-full bg-repeat opacity-[0.15] ${options?.rounded}`}
+            <div
+              ref={(el) => (wrapperRef.current = el)}
+              className={classnames(
+                "transition-all duration-200 relative ease-in-out flex items-center justify-center overflow-hidden max-w-[80vw] rounded-lg",
+                options?.theme,
+                options?.aspectRatio,
+                options?.padding,
+                options?.position
+              )}
+            >
+              {options?.noise ? (
+                <div
+                  style={{ backgroundImage: `url("/noise.svg")` }}
+                  className={`absolute inset-0 w-full h-full bg-repeat opacity-[0.15] ${options?.rounded}`}
+                />
+              ) : (
+                ""
+              )}
+              <img
+                src={blob?.src}
+                style={
+                  blob?.w
+                    ? {
+                        width: blob?.w / window.devicePixelRatio + "px",
+                      }
+                    : {}
+                }
+                className={`relative z-10s transition-all duration-200 ease-in-out ${
+                  options?.shadow
+                } ${options?.rounded} ${getImageRadius()}`}
+                onLoad={(e) => {
+                  setBlob({
+                    ...blob,
+                    w: e.target.naturalWidth,
+                    h: e.target.naturalHeight,
+                  });
+                }}
               />
-            ) : (
-              ""
-            )}
-            <img
-              src={blob?.src}
-              style={
-                blob?.w
-                  ? {
-                      width: blob?.w / window.devicePixelRatio + "px",
-                    }
-                  : {}
-              }
-              className={`relative z-10s transition-all duration-200 ease-in-out ${
-                options?.shadow
-              } ${options?.rounded} ${getImageRadius()}`}
-              onLoad={(e) => {
-                setBlob({
-                  ...blob,
-                  w: e.target.naturalWidth,
-                  h: e.target.naturalHeight,
-                });
-              }}
-            />
+            </div>
           </div>
-        </div>
+          <div
+            onClick={() => setBlob({})}
+            className="flex items-center px-3 py-1 mt-4 text-sm text-gray-500 bg-gray-200 rounded-lg cursor-pointer hover:bg-gray-300 dark:bg-gray-800/80 dark:hover:bg-gray-700/40 dark:text-gray-500"
+          >
+            <span className="w-4 h-4 mr-1">{ResetIcon}</span>
+            Reset
+          </div>
+        </>
       ) : (
         <div className="flex items-center justify-center min-h-[70vh]">
           <label
-            className="flex flex-col items-center justify-center text-xl opacity-30 select-none max-w-[550px] rounded-2xl p-10 mt-20 text-center dark:text-white cursor-pointer border-2 border-dashed border-gray-400 hover:opacity-50 duration-300"
+            className="flex flex-col items-center justify-center text-lg opacity-30 select-none max-w-[550px] rounded-2xl p-10 mt-20 text-center dark:text-white cursor-pointer border-2 border-dashed border-gray-400 hover:opacity-50 duration-300"
             htmlFor="imagesUpload"
           >
             <input
@@ -437,7 +453,7 @@ export default function Main() {
             />
             <span className="w-6 h-6 mb-2">{PasteIcon}</span>
             <p>Paste your screenshot(Cmd/Ctrl+V) </p>
-            <p>or click to add one</p>
+            <p>or click here to add one</p>
           </label>
         </div>
       )}
