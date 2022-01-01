@@ -303,7 +303,7 @@ export default function Main() {
               <input
                 type="checkbox"
                 checked={options?.noise || false}
-                // className="px-2 py-1 border border-gray-500 rounded-lg shadow appearance-none cursor-pointer opacity-90 hover:opacity-100"
+                className="text-xl"
                 onChange={(e) =>
                   setOptions({ ...options, noise: !options?.noise })
                 }
@@ -378,12 +378,13 @@ export default function Main() {
       onPaste={onPaste}
     >
       {blob?.src ? (
-        <div className={`${options?.rounded} overflow-hidden shadow-xl duration-200 ease-in-out`}>
+        <div
+          className={`${options?.rounded} overflow-hidden shadow-xl duration-200 ease-in-out`}
+        >
           <div
             ref={(el) => (wrapperRef.current = el)}
-            style={blob?.w ? { width: blob?.w / window.devicePixelRatio } : {}}
             className={classnames(
-              "transition-all duration-200 relative ease-in-out flex items-center justify-center overflow-hidden min-w-[1000px] max-w-[80vw] rounded-lg",
+              "transition-all duration-200 relative ease-in-out flex items-center justify-center overflow-hidden max-w-[80vw] rounded-lg",
               options?.theme,
               options?.aspectRatio,
               options?.padding,
@@ -400,6 +401,13 @@ export default function Main() {
             )}
             <img
               src={blob?.src}
+              style={
+                blob?.w
+                  ? {
+                      width: blob?.w / window.devicePixelRatio + "px",
+                    }
+                  : {}
+              }
               className={`relative z-10s transition-all duration-200 ease-in-out ${
                 options?.shadow
               } ${options?.rounded} ${getImageRadius()}`}
