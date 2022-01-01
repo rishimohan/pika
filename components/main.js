@@ -13,7 +13,7 @@ export default function Main() {
     padding: "p-0",
     rounded: "rounded-none",
     shadow: "shadow-none",
-    
+    noise: true
   });
 
   useEffect(() => {
@@ -173,7 +173,7 @@ export default function Main() {
       <div className="fixed top-0 left-0 flex items-center justify-center w-full">
         <div
           className={classnames(
-            "duration-300 ease-in-out inline-flex px-8 py-3 mt-10 space-x-8 border border-gray-400/70 shadow-xl bg-gray-100/80 dark:bg-gray-700/60 backdrop-blur rounded-xl dark:border-gray-500/90 shadow-gray-600/20 dark:shadow-black/10"
+            "duration-200 ease-in-out inline-flex px-8 py-3 mt-10 space-x-8 border border-gray-400/70 shadow-xl bg-gray-100/80 dark:bg-gray-700/60 backdrop-blur rounded-xl dark:border-gray-500/90 shadow-gray-600/20 dark:shadow-black/10"
           )}
         >
           <div className="">
@@ -224,7 +224,7 @@ export default function Main() {
                 "bg-gradient-to-br from-green-200 via-yellow-100 to-green-200",
                 "bg-gradient-to-br from-green-200 via-blue-200 to-blue-300",
                 "bg-gradient-to-br from-indigo-400 via-blue-400 to-purple-600",
-                "bg-gradient-to-br from-red-400 via-organge-500 to-yellow-300",
+                "bg-gradient-to-br from-red-400 via-organge-500 to-yellow-200",
                 "bg-gradient-to-br from-pink-400 via-pin-500 to-red-300",
               ].map((theme) => (
                 <div
@@ -258,6 +258,26 @@ export default function Main() {
           </div>
           <div className="">
             <div className="pb-2 text-sm font-semibold dark:text-white">
+              Screenshot position
+            </div>
+            <div>
+              <select
+                value={options.position}
+                className="px-2 py-1 border border-gray-500 rounded-lg shadow appearance-none cursor-pointer opacity-90 hover:opacity-100"
+                onChange={(e) =>
+                  setOptions({ ...options, position: e.target.value })
+                }
+              >
+                <option value="">Center</option>
+                <option value="pl-0 pt-0">Top left</option>
+                <option value="pt-0 pr-0">Top right</option>
+                <option value="pb-0 pl-0">Bottom left</option>
+                <option value="pb-0 pr-0">Bottom right</option>
+              </select>
+            </div>
+          </div>
+          <div className="">
+            <div className="pb-2 text-sm font-semibold dark:text-white">
               Shadow
             </div>
             <div>
@@ -273,6 +293,21 @@ export default function Main() {
                 <option value="shadow-xl">Medium</option>
                 <option value="shadow-2xl">Large</option>
               </select>
+            </div>
+          </div>
+          <div className="">
+            <div className="pb-2 text-sm font-semibold dark:text-white">
+              Noise
+            </div>
+            <div>
+              <input
+                type="checkbox"
+                checked={options?.noise || false}
+                // className="px-2 py-1 border border-gray-500 rounded-lg shadow appearance-none cursor-pointer opacity-90 hover:opacity-100"
+                onChange={(e) =>
+                  setOptions({ ...options, noise: !options?.noise })
+                }
+              />
             </div>
           </div>
           <div className="flex items-center justify-between pl-10 space-x-5">
@@ -294,6 +329,25 @@ export default function Main() {
         </div>
       </div>
     );
+  }
+
+  const getImageRadius = () => {
+    if(options?.padding == "p-0") {
+      return ""
+    }
+
+    switch (options?.position) {
+      case "pl-0 pt-0":
+        return "rounded-l-none rounded-tr-none";
+      case "pt-0 pr-0":
+        return "rounded-r-none rounded-tl-none";
+      case "pb-0 pl-0":
+        return "rounded-l-none rounded-br-none";
+      case "pb-0 pr-0":
+        return "rounded-r-none rounded-bl-none";
+      default:
+        return "";
+    }
   }
 
   const RenderMaker = () => (
@@ -324,28 +378,40 @@ export default function Main() {
       onPaste={onPaste}
     >
       {blob?.src ? (
-        <div
-          ref={(el) => (wrapperRef.current = el)}
-          style={blob?.w ? { width: blob?.w / window.devicePixelRatio } : {}}
-          className={classnames(
-            "shadow-xl duration-300 relative ease-in-out flex items-center justify-center overflow-hidden min-w-[1000px] max-w-[80vw] rounded-lg",
-            options?.theme,
-            options?.aspectRatio,
-            options?.padding,
-            options?.rounded
-          )}
-        >
-          <img
-            src={blob?.src}
-            className={`relative duration-300 ease-in-out ${options?.shadow} ${options?.rounded}`}
-            onLoad={(e) => {
-              setBlob({
-                ...blob,
-                w: e.target.naturalWidth,
-                h: e.target.naturalHeight,
-              });
-            }}
-          />
+        <div className={`${options?.rounded} overflow-hidden shadow-xl duration-200 ease-in-out`}>
+          <div
+            ref={(el) => (wrapperRef.current = el)}
+            style={blob?.w ? { width: blob?.w / window.devicePixelRatio } : {}}
+            className={classnames(
+              "transition-all duration-200 relative ease-in-out flex items-center justify-center overflow-hidden min-w-[1000px] max-w-[80vw] rounded-lg",
+              options?.theme,
+              options?.aspectRatio,
+              options?.padding,
+              options?.position
+            )}
+          >
+            {options?.noise ? (
+              <div
+                style={{ backgroundImage: `url("/noise.svg")` }}
+                className={`absolute inset-0 w-full h-full bg-repeat opacity-[0.15] ${options?.rounded}`}
+              />
+            ) : (
+              ""
+            )}
+            <img
+              src={blob?.src}
+              className={`relative z-10s transition-all duration-200 ease-in-out ${
+                options?.shadow
+              } ${options?.rounded} ${getImageRadius()}`}
+              onLoad={(e) => {
+                setBlob({
+                  ...blob,
+                  w: e.target.naturalWidth,
+                  h: e.target.naturalHeight,
+                });
+              }}
+            />
+          </div>
         </div>
       ) : (
         <div className="flex flex-col items-center justify-center min-h-[60vh] text-xl opacity-30 select-none max-w-[550px] rounded-2xl p-10 mt-20 text-center">
