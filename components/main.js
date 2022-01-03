@@ -16,11 +16,11 @@ export default function Main() {
   const [blob, setBlob] = useState({src: null, w: 0, h: 0});
   const [options, setOptions] = useState({
     aspectRatio: "aspect-auto",
-    theme: "bg-white",
-    padding: "p-0",
-    rounded: "rounded-none",
-    shadow: "shadow-none",
-    noise: true
+    theme: "bg-gradient-to-br from-indigo-400 via-blue-400 to-purple-600",
+    padding: "p-20",
+    rounded: "rounded-xl",
+    shadow: "shadow-xl",
+    noise: false,
   });
 
   useEffect(() => {
