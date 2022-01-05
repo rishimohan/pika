@@ -34,14 +34,31 @@ export default function Main() {
 
   useEffect(() => {
     const preset = localStorage.getItem("options");
+    document.addEventListener("keydown", handleShortcuts);
     if(preset) {
       setOptions(JSON.parse(preset));
+    }
+
+    return () => {
+      document.removeEventListener("keydown", handleShortcuts);
     }
   }, []);
 
   useEffect(() => {
     localStorage.setItem("options", JSON.stringify(options));
   }, [options])
+
+  const handleShortcuts = e => {
+    if ((e.key === "c" && e.ctrlKey) || (e.key === "c" && e.metaKey)) {
+      e.preventDefault();
+      copyImage();
+    }
+
+    if ((e.key === "s" && e.ctrlKey) || (e.key === "s" && e.metaKey)) {
+      e.preventDefault();
+      saveImage();
+    }
+  }
 
   const snapshotCreator = () => {
     return new Promise((resolve, reject) => {
@@ -69,7 +86,13 @@ export default function Main() {
   };
 
   const saveImage = async () => {
-    if (!blob?.src) {
+    let isBlobPresent = false;
+    setBlob(prev => {
+      isBlobPresent = prev.src;
+      return prev
+    });
+
+    if (!isBlobPresent) {
       toast.error("Nothing to save, make sure to add a screenshot first!");
       return;
     }
@@ -110,9 +133,15 @@ export default function Main() {
   }
 
   const copyImage = () => {
-    if(!blob?.src) {
+    let isBlobPresent = false;
+    setBlob(prev => {
+      isBlobPresent = prev.src;
+      return prev
+    });
+
+    if (!isBlobPresent) {
       toast.error("Nothing to copy, make sure to add a screenshot first!");
-      return
+      return;
     }
     const isSafari = /^((?!chrome|android).)*safari/i.test(
       navigator?.userAgent
@@ -498,12 +527,14 @@ export default function Main() {
             <div
               className="flex items-center justify-center px-4 py-2 hover:scale-[1.03] duration-200 text-lg font-semibold text-green-600 bg-green-200 rounded-lg shadow cursor-pointer border border-green-600"
               onClick={copyImage}
+              title="Use Ctrl/Cmd + C to copy the image"
             >
               <span className="w-6 h-6 mr-2">{ClipboardIcon}</span>
               Copy
             </div>
             <div
               className="flex items-center justify-center px-4 py-2 hover:scale-[1.03] duration-200 text-lg font-semibold text-indigo-600 bg-indigo-200 rounded-lg shadow cursor-pointer border border-indigo-600"
+              title="Use Ctrl/Cmd + S to save the image"
               onClick={saveImage}
             >
               <span className="w-6 h-6 mr-2">{SaveIcon}</span>
