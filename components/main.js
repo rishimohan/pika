@@ -578,7 +578,7 @@ export default function Main() {
                   : {}
               }
               className={classnames(
-                "transition-all duration-200 relative ease-in-out flex items-center justify-center overflow-hidden max-w-[80vw] rounded-lg",
+                "transition-all duration-200 relative ease-in-out flex items-center justify-center overflow-hidden max-w-[80vw]",
                 options?.aspectRatio,
                 options?.padding,
                 options?.position,
