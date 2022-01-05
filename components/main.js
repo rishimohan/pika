@@ -9,14 +9,23 @@ import {
   PasteIcon,
   TwitterIcon,
   GithubIcon,
+  ColorPickerIcon,
 } from "ui/icons";
+
+const isValidHexColor = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$";
+
 
 export default function Main() {
   const wrapperRef = useRef();
   const [blob, setBlob] = useState({src: null, w: 0, h: 0});
+  const [bgPicker, setBGPicker] = useState(false);
   const [options, setOptions] = useState({
     aspectRatio: "aspect-auto",
     theme: "bg-gradient-to-br from-indigo-400 via-blue-400 to-purple-600",
+    customTheme: {
+      colorStart: "#ff40ff",
+      colorEnd: "#fec700",
+    },
     padding: "p-20",
     rounded: "rounded-xl",
     shadow: "shadow-xl",
@@ -175,16 +184,168 @@ export default function Main() {
     }
   }
 
+  const pickBackground = () => {
+    return (
+      <>
+        {bgPicker ? (
+          <div
+            className="fixed inset-0 w-full h-full bg-transparent"
+            onClick={() => setBGPicker(false)}
+          />
+        ) : (
+          ""
+        )}
+        <div
+          className={classnames(
+            "absolute w-auto max-w-[400px] z-10 top-[calc(100%+10px)] left-0 bg-white/80 backdrop-blur shadow-lg py-4 px-5 rounded-xl flex shadow-gray-500/50 border border-gray-400 flex-col dark:border-gray-800 dark:bg-gray-800/80 duration-200",
+            {
+              "opacity-0 pointer-events-none scale-[0.9]": !bgPicker,
+            },
+            {
+              "opacity-100 pointer-events-auto scale-[1]": bgPicker,
+            }
+          )}
+        >
+          <div
+            className="absolute top-[5%] right-[5%] opacity-50 cursor-pointer hover:opacity-100 z-10"
+            onClick={() => setBGPicker(false)}
+          >
+            ✕
+          </div>
+          <div className="relative mb-3">
+            {/* Pick Start Color */}
+            <div className="mb-1">Pick first color</div>
+            <div className="flex items-center">
+              <div className="relative group">
+                <input
+                  id="startColorPicker"
+                  type="color"
+                  className="absolute top-0 left-0 w-12 h-12 rounded-full opacity-0 cursor-pointer"
+                  value={options.customTheme.colorStart}
+                  onChange={(e) =>
+                    setOptions({
+                      ...options,
+                      customTheme: {
+                        ...options.customTheme,
+                        colorStart: e.target.value,
+                      },
+                    })
+                  }
+                />
+                <label
+                  style={{
+                    backgroundColor: options?.customTheme?.colorStart || "#111",
+                  }}
+                  htmlFor="startColorPicker"
+                  className="left-0 flex items-center justify-center w-12 w-full h-12 h-full rounded-full pointer-events-none text-white/50 group-hover:scale-[1.1] duration-100"
+                >
+                  <span className="font-mono text-xs text-white/80 drop-shadow">
+                    Pick
+                  </span>
+                </label>
+              </div>
+              <span className="px-4 opacity-50">/</span>
+              <input
+                placeholder="Enter hex value"
+                type="text"
+                value={options.customTheme.colorStart}
+                className="px-2 py-1 font-mono text-base text-black border-2 border-gray-500 rounded-lg focus:outline-none focus:border-black"
+                onChange={(e) => {
+                  let startColorToast;
+                  setOptions({
+                    ...options,
+                    customTheme: {
+                      ...options.customTheme,
+                      colorStart: e.target.value,
+                    },
+                  });
+                  if (e.target.value.match(isValidHexColor)) {
+                    toast.dismiss(startColorToast);
+                    toast.success("First color applied", {
+                      id: startColorToast,
+                    });
+                  } else {
+                    toast.dismiss(startColorToast);
+                    toast.error("Invalid Hex color", { id: startColorToast });
+                  }
+                }}
+              />
+            </div>
+          </div>
+
+          {/* Pick End Color */}
+          <div>
+            <div className="mb-1">Pick second color</div>
+            <div className="flex items-center">
+              <div className="relative group">
+                <input
+                  id="startColorPicker"
+                  type="color"
+                  className="absolute top-0 left-0 w-12 h-12 rounded-full opacity-0 cursor-pointer"
+                  value={options.customTheme.colorEnd}
+                  onChange={(e) =>
+                    setOptions({
+                      ...options,
+                      customTheme: {
+                        ...options.customTheme,
+                        colorEnd: e.target.value,
+                      },
+                    })
+                  }
+                />
+                <label
+                  style={{
+                    backgroundColor: options?.customTheme?.colorEnd || "#111",
+                  }}
+                  htmlFor="startColorPicker"
+                  className="left-0 flex items-center justify-center w-12 w-full h-12 h-full rounded-full pointer-events-none text-white/50 group-hover:scale-[1.1] duration-100"
+                >
+                  <span className="font-mono text-xs text-white/80 drop-shadow">
+                    Pick
+                  </span>
+                </label>
+              </div>
+              <span className="px-4 opacity-50">/</span>
+              <input
+                placeholder="Enter hex value"
+                type="text"
+                value={options.customTheme.colorEnd}
+                className="px-2 py-1 font-mono text-base text-black border-2 border-gray-500 rounded-lg focus:outline-none focus:border-black"
+                onChange={(e) => {
+                  let endColorToast;
+                  setOptions({
+                    ...options,
+                    customTheme: {
+                      ...options.customTheme,
+                      colorEnd: e.target.value,
+                    },
+                  });
+                  if (e.target.value.match(isValidHexColor)) {
+                    toast.dismiss(endColorToast);
+                    toast.success("Second color applied", { id: endColorToast });
+                  } else {
+                    toast.dismiss(endColorToast);
+                    toast.error("Invalid Hex color", { id: endColorToast });
+                  }
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
+
   const renderOptions = () => {
     return (
       <div className="fixed top-0 left-0 flex items-center justify-center w-full">
         <div
           className={classnames(
-            "duration-200 ease-in-out inline-flex px-8 py-3 mt-10 space-x-8 border border-gray-400/70 shadow-xl bg-gray-100/80 dark:bg-gray-700/60 backdrop-blur rounded-xl dark:border-gray-500/90 shadow-gray-600/20 dark:shadow-black/10"
+            "duration-200 ease-in-out inline-flex px-8 py-3 mt-10 space-x-5 border border-gray-400/70 shadow-xl bg-gray-100/80 dark:bg-gray-700/60 backdrop-blur rounded-xl dark:border-gray-500/90 shadow-gray-600/20 dark:shadow-black/10"
           )}
         >
           <div className="">
-            <div className="pb-2 text-sm font-semibold dark:text-white">
+            <div className="pb-1 text-sm font-semibold dark:text-white">
               Aspect Ratio
             </div>
             <div>
@@ -201,7 +362,7 @@ export default function Main() {
             </div>
           </div>
           <div className="">
-            <div className="pb-2 text-sm font-semibold dark:text-white">
+            <div className="pb-1 text-sm font-semibold dark:text-white">
               Padding
             </div>
             <div>
@@ -220,8 +381,18 @@ export default function Main() {
             </div>
           </div>
           <div className="">
-            <div className="pb-2 text-sm font-semibold dark:text-white">
+            <div className="relative flex items-center pb-1 text-sm font-semibold dark:text-white">
               Background
+              <div className="relative">
+                <div
+                  onClick={() => setBGPicker(!bgPicker)}
+                  className="flex items-center px-1 ml-2 bg-white border border-gray-400 rounded-lg cursor-pointer opacity-70 hover:opacity-100 dark:bg-gray-900 dark:border-gray-600 dark:text-gray-300"
+                >
+                  <span className="w-3 h-3 mr-1">{ColorPickerIcon}</span>
+                  Pick
+                </div>
+                {pickBackground()}
+              </div>
             </div>
             <div className="flex items-center justify-start max-w-[200px] flex-wrap">
               {[
@@ -240,14 +411,18 @@ export default function Main() {
                   key={theme}
                   className={`cursor-pointer shadow-xl mr-2 mb-2 shadow-gray-500/20 w-7 h-7 rounded-full ${theme}`}
                   onClick={() => {
-                    setOptions({ ...options, theme: theme });
+                    setOptions({
+                      ...options,
+                      theme: theme,
+                      customTheme: false,
+                    });
                   }}
                 />
               ))}
             </div>
           </div>
           <div className="">
-            <div className="pb-2 text-sm font-semibold dark:text-white">
+            <div className="pb-1 text-sm font-semibold dark:text-white">
               Rounded Corners
             </div>
             <div>
@@ -266,7 +441,7 @@ export default function Main() {
             </div>
           </div>
           <div className="">
-            <div className="pb-2 text-sm font-semibold dark:text-white">
+            <div className="pb-1 text-sm font-semibold dark:text-white">
               Screenshot Position
             </div>
             <div>
@@ -286,7 +461,7 @@ export default function Main() {
             </div>
           </div>
           <div className="">
-            <div className="pb-2 text-sm font-semibold dark:text-white">
+            <div className="pb-1 text-sm font-semibold dark:text-white">
               Shadow
             </div>
             <div>
@@ -305,7 +480,7 @@ export default function Main() {
             </div>
           </div>
           <div className="">
-            <div className="pb-2 text-sm font-semibold dark:text-white">
+            <div className="pb-1 text-sm font-semibold dark:text-white">
               Noise
             </div>
             <div>
@@ -393,12 +568,21 @@ export default function Main() {
           >
             <div
               ref={(el) => (wrapperRef.current = el)}
+              style={
+                options?.customTheme
+                  ? {
+                      background: `linear-gradient(45deg, ${
+                        options?.customTheme?.colorStart || "transparent"
+                      }, ${options?.customTheme?.colorEnd || "transparent"})`,
+                    }
+                  : {}
+              }
               className={classnames(
                 "transition-all duration-200 relative ease-in-out flex items-center justify-center overflow-hidden max-w-[80vw] rounded-lg",
-                options?.theme,
                 options?.aspectRatio,
                 options?.padding,
-                options?.position
+                options?.position,
+                { [options?.theme]: !options.customTheme }
               )}
             >
               {options?.noise ? (
