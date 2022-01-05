@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import domtoimage from "dom-to-image";
 import toast from "react-hot-toast";
 import classnames from "classnames";
@@ -34,21 +34,24 @@ export default function Main() {
 
   useEffect(() => {
     const preset = localStorage.getItem("options");
-    document.addEventListener("keydown", handleShortcuts);
     if(preset) {
       setOptions(JSON.parse(preset));
     }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleShortcuts);
 
     return () => {
       document.removeEventListener("keydown", handleShortcuts);
     }
-  }, []);
+  }, [blob]);
 
   useEffect(() => {
     localStorage.setItem("options", JSON.stringify(options));
   }, [options])
 
-  const handleShortcuts = e => {
+  const handleShortcuts = useCallback(e => {
     if ((e.key === "c" && e.ctrlKey) || (e.key === "c" && e.metaKey)) {
       e.preventDefault();
       copyImage();
@@ -58,7 +61,7 @@ export default function Main() {
       e.preventDefault();
       saveImage();
     }
-  }
+  }, [setBlob])
 
   const snapshotCreator = () => {
     return new Promise((resolve, reject) => {
@@ -250,7 +253,7 @@ export default function Main() {
                   id="startColorPicker"
                   type="color"
                   className="absolute top-0 left-0 w-12 h-12 rounded-full opacity-0 cursor-pointer"
-                  value={options.customTheme.colorStart}
+                  value={options.customTheme.colorStart || "#000000"}
                   onChange={(e) =>
                     setOptions({
                       ...options,
@@ -277,7 +280,7 @@ export default function Main() {
               <input
                 placeholder="Enter hex value"
                 type="text"
-                value={options.customTheme.colorStart}
+                value={options.customTheme.colorStart || "#000000"}
                 className="px-2 py-1 font-mono text-base text-black border-2 border-gray-500 rounded-lg focus:outline-none focus:border-black"
                 onChange={(e) => {
                   let startColorToast;
@@ -311,7 +314,7 @@ export default function Main() {
                   id="startColorPicker"
                   type="color"
                   className="absolute top-0 left-0 w-12 h-12 rounded-full opacity-0 cursor-pointer"
-                  value={options.customTheme.colorEnd}
+                  value={options.customTheme.colorEnd || "#000000"}
                   onChange={(e) =>
                     setOptions({
                       ...options,
@@ -338,7 +341,7 @@ export default function Main() {
               <input
                 placeholder="Enter hex value"
                 type="text"
-                value={options.customTheme.colorEnd}
+                value={options.customTheme.colorEnd || "#000000"}
                 className="px-2 py-1 font-mono text-base text-black border-2 border-gray-500 rounded-lg focus:outline-none focus:border-black"
                 onChange={(e) => {
                   let endColorToast;
