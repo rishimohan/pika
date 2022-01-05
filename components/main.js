@@ -51,7 +51,7 @@ export default function Main() {
     localStorage.setItem("options", JSON.stringify(options));
   }, [options])
 
-  const handleShortcuts = useCallback(e => {
+  const handleShortcuts = e => {
     if ((e.key === "c" && e.ctrlKey) || (e.key === "c" && e.metaKey)) {
       e.preventDefault();
       copyImage();
@@ -61,7 +61,7 @@ export default function Main() {
       e.preventDefault();
       saveImage();
     }
-  }, [setBlob])
+  };
 
   const snapshotCreator = () => {
     return new Promise((resolve, reject) => {
@@ -89,13 +89,7 @@ export default function Main() {
   };
 
   const saveImage = async () => {
-    let isBlobPresent = false;
-    setBlob(prev => {
-      isBlobPresent = prev.src;
-      return prev
-    });
-
-    if (!isBlobPresent) {
+    if (!blob?.src) {
       toast.error("Nothing to save, make sure to add a screenshot first!");
       return;
     }
@@ -136,13 +130,7 @@ export default function Main() {
   }
 
   const copyImage = () => {
-    let isBlobPresent = false;
-    setBlob(prev => {
-      isBlobPresent = prev.src;
-      return prev
-    });
-
-    if (!isBlobPresent) {
+    if (!blob?.src) {
       toast.error("Nothing to copy, make sure to add a screenshot first!");
       return;
     }
