@@ -422,7 +422,7 @@ export default function Main() {
                 "bg-gradient-to-br from-green-200 via-yellow-100 to-green-200",
                 "bg-gradient-to-br from-green-200 via-blue-200 to-blue-300",
                 "bg-gradient-to-br from-indigo-400 via-blue-400 to-purple-600",
-                "bg-gradient-to-br from-red-400 via-organge-500 to-yellow-200",
+                "bg-gradient-to-br from-red-400 via-orange-500 to-yellow-200",
                 "bg-gradient-to-br from-pink-400 via-pink-500 to-red-300",
                 "bg-gradient-to-br from-slate-400 via-gray-600 to-gray-800",
                 "bg-gradient-to-br from-orange-300 via-orange-400 to-gray-700",
