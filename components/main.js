@@ -14,10 +14,9 @@ import {
 
 const isValidHexColor = "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$";
 
-
 export default function Main() {
   const wrapperRef = useRef();
-  const [blob, setBlob] = useState({src: null, w: 0, h: 0});
+  const [blob, setBlob] = useState({ src: null, w: 0, h: 0 });
   const [bgPicker, setBGPicker] = useState(false);
   const [options, setOptions] = useState({
     aspectRatio: "aspect-auto",
@@ -34,7 +33,7 @@ export default function Main() {
 
   useEffect(() => {
     const preset = localStorage.getItem("options");
-    if(preset) {
+    if (preset) {
       setOptions(JSON.parse(preset));
     }
   }, []);
@@ -44,14 +43,14 @@ export default function Main() {
 
     return () => {
       document.removeEventListener("keydown", handleShortcuts);
-    }
+    };
   }, [blob]);
 
   useEffect(() => {
     localStorage.setItem("options", JSON.stringify(options));
-  }, [options])
+  }, [options]);
 
-  const handleShortcuts = e => {
+  const handleShortcuts = (e) => {
     if ((e.key === "c" && e.ctrlKey) || (e.key === "c" && e.metaKey)) {
       e.preventDefault();
       copyImage();
@@ -96,19 +95,10 @@ export default function Main() {
     if (window.pirsch) {
       pirsch("🎉 Screenshot saved");
     }
-    let savingToast = toast.loading('Exporting image...')
+    let savingToast = toast.loading("Exporting image...");
     const scale = window.devicePixelRatio;
-    domtoimage.toPng(wrapperRef.current, {
-      height: wrapperRef.current.offsetHeight * scale,
-      width: wrapperRef.current.offsetWidth * scale,
-      style: {
-        transform: "scale(" + scale + ")",
-        transformOrigin: "top left",
-        width: wrapperRef.current.offsetWidth + "px",
-        height: wrapperRef.current.offsetHeight + "px",
-      },
-    }).then(async data => {
-      domtoimage.toPng(wrapperRef.current, {
+    domtoimage
+      .toPng(wrapperRef.current, {
         height: wrapperRef.current.offsetHeight * scale,
         width: wrapperRef.current.offsetWidth * scale,
         style: {
@@ -117,17 +107,30 @@ export default function Main() {
           width: wrapperRef.current.offsetWidth + "px",
           height: wrapperRef.current.offsetHeight + "px",
         },
-      }).then(async data => {
-        var a = document.createElement("A");
-        a.href = data;
-        a.download = `pika-1.png`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        toast.success("Image exported!", { id: savingToast });
+      })
+      .then(async (data) => {
+        domtoimage
+          .toPng(wrapperRef.current, {
+            height: wrapperRef.current.offsetHeight * scale,
+            width: wrapperRef.current.offsetWidth * scale,
+            style: {
+              transform: "scale(" + scale + ")",
+              transformOrigin: "top left",
+              width: wrapperRef.current.offsetWidth + "px",
+              height: wrapperRef.current.offsetHeight + "px",
+            },
+          })
+          .then(async (data) => {
+            var a = document.createElement("A");
+            a.href = data;
+            a.download = `pika-1.png`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            toast.success("Image exported!", { id: savingToast });
+          });
       });
-    });
-  }
+  };
 
   const copyImage = () => {
     if (!blob?.src) {
@@ -157,7 +160,7 @@ export default function Main() {
             }),
           }),
         ])
-        .then(() => toast.success('Image copied to clipboard'))
+        .then(() => toast.success("Image copied to clipboard"))
         .catch((err) =>
           // Error
           toast.success(err)
@@ -187,22 +190,23 @@ export default function Main() {
     }
   };
 
-
-  const onPaste = event => {
-    var items = (event?.clipboardData || event?.originalEvent?.clipboardData)?.items || event?.target?.files;
+  const onPaste = (event) => {
+    var items =
+      (event?.clipboardData || event?.originalEvent?.clipboardData)?.items ||
+      event?.target?.files;
     var index = 0;
     for (index in items) {
       var item = items[index];
-      if (item.kind === 'file' || item?.type?.includes("image")) {
+      if (item.kind === "file" || item?.type?.includes("image")) {
         var blob = item?.kind ? item.getAsFile() : item;
         var reader = new FileReader();
-        reader.onload = function(event){
-          setBlob({...blob, src: event.target.result});
-        }
+        reader.onload = function (event) {
+          setBlob({ ...blob, src: event.target.result });
+        };
         reader.readAsDataURL(blob);
       }
     }
-  }
+  };
 
   const pickBackground = () => {
     return (
@@ -217,7 +221,7 @@ export default function Main() {
         )}
         <div
           className={classnames(
-            "absolute w-auto max-w-[400px] z-10 top-[calc(100%+10px)] left-0 bg-white/80 backdrop-blur shadow-lg py-4 px-5 rounded-xl flex shadow-gray-500/50 border border-gray-400 flex-col dark:border-gray-800 dark:bg-gray-800/80 duration-200",
+            "absolute w-auto max-w-[400px] z-10 top-[calc(100%)] left-[-30px] bg-white/80 backdrop-blur shadow-lg py-4 px-5 rounded-xl flex shadow-gray-500/50 dark:shadow-black/80 border border-gray-400 flex-col dark:border-gray-800 dark:bg-black/90 duration-200",
             {
               "opacity-0 pointer-events-none scale-[0.9]": !bgPicker,
             },
@@ -318,7 +322,7 @@ export default function Main() {
                     backgroundColor: options?.customTheme?.colorEnd || "#111",
                   }}
                   htmlFor="startColorPicker"
-                  className="left-0 flex items-center justify-center w-12 w-full h-12 h-full rounded-full pointer-events-none text-white/50 group-hover:scale-[1.1] duration-100"
+                  className="left-0 flex items-center justify-center w-12  h-12 rounded-full pointer-events-none text-white/50 group-hover:scale-[1.1] duration-100"
                 >
                   <span className="font-mono text-xs text-white/80 drop-shadow">
                     Pick
@@ -342,7 +346,9 @@ export default function Main() {
                   });
                   if (e.target.value.match(isValidHexColor)) {
                     toast.dismiss(endColorToast);
-                    toast.success("Second color applied", { id: endColorToast });
+                    toast.success("Second color applied", {
+                      id: endColorToast,
+                    });
                   } else {
                     toast.dismiss(endColorToast);
                     toast.error("Invalid Hex color", { id: endColorToast });
@@ -354,192 +360,202 @@ export default function Main() {
         </div>
       </>
     );
-  }
+  };
 
   const renderOptions = () => {
     return (
-      <div className="fixed top-0 left-0 flex items-center justify-center w-full">
+      <div className="sticky top-0 flex items-center h-screen">
         <div
           className={classnames(
-            "duration-200 ease-in-out inline-flex px-8 py-3 mt-10 space-x-5 border border-gray-400/70 shadow-xl bg-gray-100/80 dark:bg-gray-700/60 backdrop-blur rounded-xl dark:border-gray-500/90 shadow-gray-600/20 dark:shadow-black/10"
+            "flex p-6 lg:p-8 flex-col h-auto bg-white/90 dark:bg-[#000]/70 rounded-2xl ring-2 ring-pink-300 dark:ring-pink-900/40 ring-offset-[2px] ring-offset-white dark:ring-offset-black shadow-lg shadow-gray-200 dark:shadow-black max-h-screen w-full relative min-h-[650px]"
           )}
         >
-          <div className="">
-            <div className="pb-1 text-sm font-semibold dark:text-white">
-              Aspect Ratio
-            </div>
-            <div>
-              <select
-                value={options.aspectRatio}
-                className="px-2 py-1 border border-gray-500 rounded-lg shadow-lg appearance-none cursor-pointer opacity-80 hover:opacity-100"
-                onChange={(e) =>
-                  setOptions({ ...options, aspectRatio: e.target.value })
-                }
-              >
-                <option value="aspect-auto">Auto</option>
-                <option value="aspect-square">Square</option>
-              </select>
-            </div>
-          </div>
-          <div className="">
-            <div className="pb-1 text-sm font-semibold dark:text-white">
-              Padding
-            </div>
-            <div>
-              <select
-                value={options.padding}
-                className="px-2 py-1 border border-gray-500 rounded-lg shadow-lg appearance-none cursor-pointer opacity-80 hover:opacity-100"
-                onChange={(e) =>
-                  setOptions({ ...options, padding: e.target.value })
-                }
-              >
-                <option value="p-0">None</option>
-                <option value="p-10">Small</option>
-                <option value="p-20">Medium</option>
-                <option value="p-32">Large</option>
-              </select>
-            </div>
-          </div>
-          <div className="">
-            <div className="relative flex items-center pb-1 text-sm font-semibold dark:text-white">
-              Background
-              <div className="relative">
-                <div
-                  onClick={() => setBGPicker(!bgPicker)}
-                  className="flex items-center px-1 ml-2 bg-white border border-gray-400 rounded-lg cursor-pointer opacity-70 hover:opacity-100 dark:bg-gray-900 dark:border-gray-600 dark:text-gray-300"
+          <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-pink-200 dark:from-pink-900/80 to-red-100 dark:to-red-900/60 blur-xl scale-y-[1.05] scale-x-[1.1] max-h-[calc(100vh-60px)] transform-gpu" />
+          <div className="relative space-y-7">
+            <div className="flex items-center justify-between">
+              <div className="text-sm font-semibold dark:text-white">
+                Aspect Ratio
+              </div>
+              <div>
+                <select
+                  value={options.aspectRatio}
+                  className="px-2 py-1 border border-gray-500 rounded-lg shadow-lg appearance-none cursor-pointer opacity-80 hover:opacity-100"
+                  onChange={(e) =>
+                    setOptions({ ...options, aspectRatio: e.target.value })
+                  }
                 >
-                  <span className="w-3 h-3 mr-1">{ColorPickerIcon}</span>
-                  Pick
+                  <option value="aspect-auto">Auto</option>
+                  <option value="aspect-square">Square</option>
+                </select>
+              </div>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="text-sm font-semibold dark:text-white">
+                Padding
+              </div>
+              <div>
+                <select
+                  value={options.padding}
+                  className="px-2 py-1 border border-gray-500 rounded-lg shadow-lg appearance-none cursor-pointer opacity-80 hover:opacity-100"
+                  onChange={(e) =>
+                    setOptions({ ...options, padding: e.target.value })
+                  }
+                >
+                  <option value="p-0">None</option>
+                  <option value="p-10">Small</option>
+                  <option value="p-20">Medium</option>
+                  <option value="p-32">Large</option>
+                </select>
+              </div>
+            </div>
+            <div className="">
+              <div className="relative flex items-center pb-2 text-sm font-semibold dark:text-white">
+                Background
+                <div className="relative">
+                  <div
+                    onClick={() => setBGPicker(!bgPicker)}
+                    className="flex items-center px-1 ml-2 border border-gray-400 rounded-lg cursor-pointer bg-white/70 opacity-70 hover:opacity-100 dark:bg-gray-900/20 dark:border-gray-600 dark:text-gray-300"
+                  >
+                    <span className="w-3 h-3 mr-1">{ColorPickerIcon}</span>
+                    Pick
+                  </div>
                 </div>
                 {pickBackground()}
               </div>
+              <div className="grid flex-wrap grid-cols-6 gap-x-4 gap-y-2 max-w-[90%] mt-1">
+                {[
+                  "bg-gradient-to-br from-pink-300 via-orange-200 to-red-300",
+                  "bg-gradient-to-br from-green-300 via-yellow-200 to-green-200",
+                  "bg-gradient-to-br from-green-200 via-blue-100 to-blue-300",
+                  "bg-gradient-to-br from-indigo-300 via-blue-400 to-purple-500",
+                  "bg-gradient-to-br from-red-300 via-orange-300 to-yellow-200",
+                  "bg-gradient-to-br from-pink-300 via-pink-400 to-red-400",
+                  "bg-gradient-to-br from-slate-400 via-gray-500 to-gray-700",
+                  "bg-gradient-to-br from-orange-300 via-orange-400 to-red-400",
+                  "bg-gradient-to-br from-teal-300 to-cyan-400",
+                  "bg-gradient-to-br from-red-300 to-purple-600",
+                  "bg-white",
+                  "bg-black",
+                ].map((theme) => (
+                  <div
+                    key={theme}
+                    className={`cursor-pointer shadow-xl shadow-gray-500/20 w-8 h-8 rounded-full ${theme}`}
+                    onClick={() => {
+                      setOptions({
+                        ...options,
+                        theme: theme,
+                        customTheme: false,
+                      });
+                    }}
+                  />
+                ))}
+              </div>
             </div>
-            <div className="flex items-center justify-start max-w-[200px] flex-wrap">
-              {[
-                "bg-white",
-                "bg-black",
-                "bg-gradient-to-br from-pink-300 via-orange-200 to-red-300",
-                "bg-gradient-to-br from-green-200 via-yellow-100 to-green-200",
-                "bg-gradient-to-br from-green-200 via-blue-200 to-blue-300",
-                "bg-gradient-to-br from-indigo-400 via-blue-400 to-purple-600",
-                "bg-gradient-to-br from-red-400 via-orange-500 to-yellow-200",
-                "bg-gradient-to-br from-pink-400 via-pink-500 to-red-300",
-                "bg-gradient-to-br from-slate-400 via-gray-600 to-gray-800",
-                "bg-gradient-to-br from-orange-300 via-orange-400 to-gray-700",
-              ].map((theme) => (
-                <div
-                  key={theme}
-                  className={`cursor-pointer shadow-xl mr-2 mb-2 shadow-gray-500/20 w-7 h-7 rounded-full ${theme}`}
-                  onClick={() => {
-                    setOptions({
-                      ...options,
-                      theme: theme,
-                      customTheme: false,
-                    });
-                  }}
+            <div className="flex items-center justify-between">
+              <div className="text-sm font-semibold dark:text-white">
+                Rounded Corners
+              </div>
+              <div>
+                <select
+                  value={options.rounded}
+                  className="px-2 py-1 border border-gray-500 rounded-lg shadow-lg appearance-none cursor-pointer opacity-80 hover:opacity-100"
+                  onChange={(e) =>
+                    setOptions({ ...options, rounded: e.target.value })
+                  }
+                >
+                  <option value="rounded-none">None</option>
+                  <option value="rounded-lg">Small</option>
+                  <option value="rounded-xl">Medium</option>
+                  <option value="rounded-3xl">Large</option>
+                </select>
+              </div>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="text-sm font-semibold dark:text-white">
+                Screenshot Position
+              </div>
+              <div>
+                <select
+                  value={options.position}
+                  className="px-2 py-1 border border-gray-500 rounded-lg shadow-lg appearance-none cursor-pointer opacity-80 hover:opacity-100"
+                  onChange={(e) =>
+                    setOptions({ ...options, position: e.target.value })
+                  }
+                >
+                  <option value="">Center</option>
+                  <option value="pl-0 pt-0">Top left</option>
+                  <option value="pt-0 pr-0">Top right</option>
+                  <option value="pb-0 pl-0">Bottom left</option>
+                  <option value="pb-0 pr-0">Bottom right</option>
+                </select>
+              </div>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="text-sm font-semibold dark:text-white">
+                Shadow
+              </div>
+              <div>
+                <select
+                  value={options.shadow}
+                  className="px-2 py-1 border border-gray-500 rounded-lg shadow-lg appearance-none cursor-pointer opacity-80 hover:opacity-100"
+                  onChange={(e) =>
+                    setOptions({ ...options, shadow: e.target.value })
+                  }
+                >
+                  <option value="shadow-none">None</option>
+                  <option value="shadow-lg">Small</option>
+                  <option value="shadow-xl">Medium</option>
+                  <option value="shadow-2xl">Large</option>
+                </select>
+              </div>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="text-sm font-semibold dark:text-white">Noise</div>
+              <div>
+                <input
+                  type="checkbox"
+                  checked={options?.noise || false}
+                  className="text-xl"
+                  onChange={(e) =>
+                    setOptions({ ...options, noise: !options?.noise })
+                  }
                 />
-              ))}
+              </div>
             </div>
-          </div>
-          <div className="">
-            <div className="pb-1 text-sm font-semibold dark:text-white">
-              Rounded Corners
-            </div>
-            <div>
-              <select
-                value={options.rounded}
-                className="px-2 py-1 border border-gray-500 rounded-lg shadow-lg appearance-none cursor-pointer opacity-80 hover:opacity-100"
-                onChange={(e) =>
-                  setOptions({ ...options, rounded: e.target.value })
-                }
+            <div className="flex items-center justify-between">
+              <div
+                className="flex items-center justify-center px-4 py-2 hover:scale-[1.03] duration-200 text-lg font-semibold text-pink-600 bg-pink-200 rounded-lg shadow cursor-pointer border border-pink-600 w-full"
+                onClick={copyImage}
+                title="Use Ctrl/Cmd + C to copy the image"
               >
-                <option value="rounded-none">None</option>
-                <option value="rounded-lg">Small</option>
-                <option value="rounded-xl">Medium</option>
-                <option value="rounded-3xl">Large</option>
-              </select>
-            </div>
-          </div>
-          <div className="">
-            <div className="pb-1 text-sm font-semibold dark:text-white">
-              Screenshot Position
-            </div>
-            <div>
-              <select
-                value={options.position}
-                className="px-2 py-1 border border-gray-500 rounded-lg shadow-lg appearance-none cursor-pointer opacity-80 hover:opacity-100"
-                onChange={(e) =>
-                  setOptions({ ...options, position: e.target.value })
-                }
+                <span className="w-6 h-6 mr-2">{ClipboardIcon}</span>
+                Copy
+              </div>
+              <div
+                className="flex items-center justify-center px-4 py-2 hover:scale-[1.03] duration-200 text-lg font-semibold bg-pink-600 dark:bg-pink-800 text-pink-200 rounded-lg shadow cursor-pointer border border-pink-600 w-full ml-4"
+                title="Use Ctrl/Cmd + S to save the image"
+                onClick={saveImage}
               >
-                <option value="">Center</option>
-                <option value="pl-0 pt-0">Top left</option>
-                <option value="pt-0 pr-0">Top right</option>
-                <option value="pb-0 pl-0">Bottom left</option>
-                <option value="pb-0 pr-0">Bottom right</option>
-              </select>
-            </div>
-          </div>
-          <div className="">
-            <div className="pb-1 text-sm font-semibold dark:text-white">
-              Shadow
-            </div>
-            <div>
-              <select
-                value={options.shadow}
-                className="px-2 py-1 border border-gray-500 rounded-lg shadow-lg appearance-none cursor-pointer opacity-80 hover:opacity-100"
-                onChange={(e) =>
-                  setOptions({ ...options, shadow: e.target.value })
-                }
-              >
-                <option value="shadow-none">None</option>
-                <option value="shadow-lg">Small</option>
-                <option value="shadow-xl">Medium</option>
-                <option value="shadow-2xl">Large</option>
-              </select>
-            </div>
-          </div>
-          <div className="">
-            <div className="pb-1 text-sm font-semibold dark:text-white">
-              Noise
-            </div>
-            <div>
-              <input
-                type="checkbox"
-                checked={options?.noise || false}
-                className="text-xl"
-                onChange={(e) =>
-                  setOptions({ ...options, noise: !options?.noise })
-                }
-              />
-            </div>
-          </div>
-          <div className="flex items-center justify-between pl-10 space-x-5">
-            <div
-              className="flex items-center justify-center px-4 py-2 hover:scale-[1.03] duration-200 text-lg font-semibold text-green-600 bg-green-200 rounded-lg shadow cursor-pointer border border-green-600"
-              onClick={copyImage}
-              title="Use Ctrl/Cmd + C to copy the image"
-            >
-              <span className="w-6 h-6 mr-2">{ClipboardIcon}</span>
-              Copy
+                <span className="w-6 h-6 mr-2">{SaveIcon}</span>
+                Save
+              </div>
             </div>
             <div
-              className="flex items-center justify-center px-4 py-2 hover:scale-[1.03] duration-200 text-lg font-semibold text-indigo-600 bg-indigo-200 rounded-lg shadow cursor-pointer border border-indigo-600"
-              title="Use Ctrl/Cmd + S to save the image"
-              onClick={saveImage}
+              onClick={() => setBlob({})}
+              className="flex items-center justify-center w-full px-3 py-1 mx-auto mt-4 text-sm text-pink-400 rounded-lg cursor-pointer"
             >
-              <span className="w-6 h-6 mr-2">{SaveIcon}</span>
-              Save
+              <span className="w-4 h-4 mr-1">{ResetIcon}</span>
+              Reset
             </div>
           </div>
         </div>
       </div>
     );
-  }
+  };
 
   const getImageRadius = () => {
-    if(options?.padding == "p-0") {
-      return ""
+    if (options?.padding == "p-0") {
+      return "";
     }
 
     switch (options?.position) {
@@ -554,10 +570,10 @@ export default function Main() {
       default:
         return "";
     }
-  }
+  };
 
   const RenderMaker = () => (
-    <div className="flex pt-20 mt-auto text-sm dark:text-gray-400">
+    <div className="flex pt-20 text-sm dark:text-gray-400">
       <a
         href="https://twitter.com/thelifeofrishi"
         target="_blank"
@@ -580,91 +596,90 @@ export default function Main() {
 
   return (
     <div
-      className="flex flex-col items-center justify-center h-full min-h-screen p-10 pt-48 dark:bg-gray-900"
+      className="flex flex-col items-start justify-start h-screen px-10 min-h-[800px]"
       onPaste={onPaste}
     >
-      {blob?.src ? (
-        <>
-          <div
-            className={`${options?.rounded} overflow-hidden shadow-xl duration-200 ease-in-out`}
-          >
-            <div
-              ref={(el) => (wrapperRef.current = el)}
-              style={
-                options?.customTheme
-                  ? {
-                      background: `linear-gradient(45deg, ${
-                        options?.customTheme?.colorStart || "transparent"
-                      }, ${options?.customTheme?.colorEnd || "transparent"})`,
-                    }
-                  : {}
-              }
-              className={classnames(
-                "transition-all duration-200 relative ease-in-out flex items-center justify-center overflow-hidden max-w-[80vw]",
-                options?.aspectRatio,
-                options?.padding,
-                options?.position,
-                { [options?.theme]: !options.customTheme }
-              )}
-            >
-              {options?.noise ? (
+      <div className="relative flex flex-row-reverse w-full">
+        <div className="w-[300px] xl:w-[350px]">{renderOptions()}</div>
+        <div className="w-[calc(100%-300px)] xl:w-[calc(100%-350px)] p-10 flex flex-col items-center justify-center overflow-y-auto">
+          {blob?.src ? (
+            <>
+              <div
+                className={`${options?.rounded} overflow-hidden shadow-xl duration-200 ease-in-out`}
+              >
                 <div
-                  style={{ backgroundImage: `url("/noise.svg")` }}
-                  className={`absolute inset-0 w-full h-full bg-repeat opacity-[0.15] ${options?.rounded}`}
+                  ref={(el) => (wrapperRef.current = el)}
+                  style={
+                    options?.customTheme
+                      ? {
+                          background: `linear-gradient(45deg, ${
+                            options?.customTheme?.colorStart || "transparent"
+                          }, ${
+                            options?.customTheme?.colorEnd || "transparent"
+                          })`,
+                        }
+                      : {}
+                  }
+                  className={classnames(
+                    "transition-all duration-200 relative ease-in-out flex items-center justify-center overflow-hidden max-w-[80vw]",
+                    options?.aspectRatio,
+                    options?.padding,
+                    options?.position,
+                    { [options?.theme]: !options.customTheme }
+                  )}
+                >
+                  {options?.noise ? (
+                    <div
+                      style={{ backgroundImage: `url("/noise.svg")` }}
+                      className={`absolute inset-0 w-full h-full bg-repeat opacity-[0.15] ${options?.rounded}`}
+                    />
+                  ) : (
+                    ""
+                  )}
+                  <img
+                    src={blob?.src}
+                    style={
+                      blob?.w
+                        ? {
+                            width: blob?.w / window.devicePixelRatio + "px",
+                          }
+                        : {}
+                    }
+                    className={`relative z-10s transition-all duration-200 ease-in-out ${
+                      options?.shadow
+                    } ${options?.rounded} ${getImageRadius()}`}
+                    onLoad={(e) => {
+                      setBlob({
+                        ...blob,
+                        w: e.target.naturalWidth,
+                        h: e.target.naturalHeight,
+                      });
+                    }}
+                  />
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className="flex items-center justify-center min-h-[70vh]">
+              <label
+                className="flex flex-col items-center justify-center text-lg opacity-30 select-none max-w-[550px] rounded-2xl p-10 mt-20 text-center dark:text-white cursor-pointer border-2 border-dashed border-gray-400 hover:opacity-50 duration-300"
+                htmlFor="imagesUpload"
+              >
+                <input
+                  className="hidden"
+                  id="imagesUpload"
+                  type="file"
+                  onChange={onPaste}
                 />
-              ) : (
-                ""
-              )}
-              <img
-                src={blob?.src}
-                style={
-                  blob?.w
-                    ? {
-                        width: blob?.w / window.devicePixelRatio + "px",
-                      }
-                    : {}
-                }
-                className={`relative z-10s transition-all duration-200 ease-in-out ${
-                  options?.shadow
-                } ${options?.rounded} ${getImageRadius()}`}
-                onLoad={(e) => {
-                  setBlob({
-                    ...blob,
-                    w: e.target.naturalWidth,
-                    h: e.target.naturalHeight,
-                  });
-                }}
-              />
+                <span className="w-6 h-6 mb-2">{PasteIcon}</span>
+                <p>Paste your screenshot(Cmd/Ctrl+V) </p>
+                <p>or click here to add one</p>
+              </label>
             </div>
-          </div>
-          <div
-            onClick={() => setBlob({})}
-            className="flex items-center px-3 py-1 mt-4 text-sm text-gray-500 bg-gray-200 rounded-lg cursor-pointer hover:bg-gray-300 dark:bg-gray-800/80 dark:hover:bg-gray-700/40 dark:text-gray-500"
-          >
-            <span className="w-4 h-4 mr-1">{ResetIcon}</span>
-            Reset
-          </div>
-        </>
-      ) : (
-        <div className="flex items-center justify-center min-h-[70vh]">
-          <label
-            className="flex flex-col items-center justify-center text-lg opacity-30 select-none max-w-[550px] rounded-2xl p-10 mt-20 text-center dark:text-white cursor-pointer border-2 border-dashed border-gray-400 hover:opacity-50 duration-300"
-            htmlFor="imagesUpload"
-          >
-            <input
-              className="hidden"
-              id="imagesUpload"
-              type="file"
-              onChange={onPaste}
-            />
-            <span className="w-6 h-6 mb-2">{PasteIcon}</span>
-            <p>Paste your screenshot(Cmd/Ctrl+V) </p>
-            <p>or click here to add one</p>
-          </label>
+          )}
+          <RenderMaker />
         </div>
-      )}
-      {renderOptions()}
-      <RenderMaker />
+      </div>
     </div>
   );
 }
