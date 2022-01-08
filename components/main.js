@@ -221,7 +221,7 @@ export default function Main() {
         )}
         <div
           className={classnames(
-            "absolute w-auto max-w-[400px] z-10 top-[calc(100%)] left-[-30px] bg-white/80 backdrop-blur shadow-lg py-4 px-5 rounded-xl flex shadow-gray-500/50 dark:shadow-black/80 border border-gray-400 flex-col dark:border-gray-800 dark:bg-black/90 duration-200",
+            "absolute w-auto max-w-[400px] z-10 top-[calc(100%)] left-[-30px] bg-white/80 backdrop-blur shadow-lg py-4 px-5 rounded-xl flex shadow-gray-500/50 dark:shadow-black/80 border border-gray-400 flex-col dark:border-gray-800 dark:bg-black/80 duration-200",
             {
               "opacity-0 pointer-events-none scale-[0.9]": !bgPicker,
             },
@@ -364,15 +364,15 @@ export default function Main() {
 
   const renderOptions = () => {
     return (
-      <div className="sticky top-0 flex items-center h-screen">
+      <div className="sticky top-0 flex items-center lg:min-h-screen">
         <div
           className={classnames(
-            "flex p-6 lg:p-8 flex-col h-auto bg-white/90 dark:bg-[#000]/70 rounded-2xl ring-2 ring-pink-300 dark:ring-pink-900/40 ring-offset-[2px] ring-offset-white dark:ring-offset-black shadow-lg shadow-gray-200 dark:shadow-black max-h-screen w-full relative min-h-[650px]"
+            "p-6 lg:p-8 h-auto bg-white/90 dark:bg-[#000]/70 rounded-2xl ring-2 ring-pink-300 dark:ring-red-900/20 ring-offset-[2px] ring-offset-white dark:ring-offset-black shadow-lg shadow-gray-200 dark:shadow-black lg:max-h-screen w-full relative lg:min-h-[650px] mt-10 lg:mt-0"
           )}
         >
-          <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-pink-200 dark:from-pink-900/80 to-red-100 dark:to-red-900/60 blur-xl scale-y-[1.05] scale-x-[1.1] max-h-[calc(100vh-60px)] transform-gpu" />
-          <div className="relative space-y-7">
-            <div className="flex items-center justify-between">
+          <div className="absolute inset-0 w-full lg:h-full bg-gradient-to-br from-pink-200 dark:from-red-800/40 to-red-100 dark:to-pink-800/60 blur-xl dark:blur-2xl lg:scale-y-[1.05] scale-100 lg:scale-x-[1.1] lg:max-h-[calc(100vh-60px)] transform-gpu" />
+          <div className="relative flex flex-row flex-wrap items-start justify-start space-y-5 lg:items-start lg:flex-col lg:space-y-7">
+            <div className="flex items-center justify-between w-full">
               <div className="text-sm font-semibold dark:text-white">
                 Aspect Ratio
               </div>
@@ -389,7 +389,7 @@ export default function Main() {
                 </select>
               </div>
             </div>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between w-full">
               <div className="text-sm font-semibold dark:text-white">
                 Padding
               </div>
@@ -422,7 +422,7 @@ export default function Main() {
                 </div>
                 {pickBackground()}
               </div>
-              <div className="grid flex-wrap grid-cols-6 gap-x-4 gap-y-2 max-w-[90%] mt-1">
+              <div className="grid flex-wrap grid-cols-6 mt-1 gap-x-4 gap-y-2">
                 {[
                   "bg-gradient-to-br from-pink-300 via-orange-200 to-red-300",
                   "bg-gradient-to-br from-green-300 via-yellow-200 to-green-200",
@@ -439,7 +439,7 @@ export default function Main() {
                 ].map((theme) => (
                   <div
                     key={theme}
-                    className={`cursor-pointer shadow-xl shadow-gray-500/20 w-8 h-8 rounded-full ${theme}`}
+                    className={`cursor-pointer shadow dark:shadow-black/80 shadow-gray-500/20 w-8 h-8 rounded-full ${theme}`}
                     onClick={() => {
                       setOptions({
                         ...options,
@@ -451,7 +451,7 @@ export default function Main() {
                 ))}
               </div>
             </div>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between w-full">
               <div className="text-sm font-semibold dark:text-white">
                 Rounded Corners
               </div>
@@ -470,7 +470,7 @@ export default function Main() {
                 </select>
               </div>
             </div>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between w-full">
               <div className="text-sm font-semibold dark:text-white">
                 Screenshot Position
               </div>
@@ -490,7 +490,7 @@ export default function Main() {
                 </select>
               </div>
             </div>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between w-full">
               <div className="text-sm font-semibold dark:text-white">
                 Shadow
               </div>
@@ -509,7 +509,7 @@ export default function Main() {
                 </select>
               </div>
             </div>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between w-full">
               <div className="text-sm font-semibold dark:text-white">Noise</div>
               <div>
                 <input
@@ -522,9 +522,9 @@ export default function Main() {
                 />
               </div>
             </div>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between w-full">
               <div
-                className="flex items-center justify-center px-4 py-2 hover:scale-[1.03] duration-200 text-lg font-semibold text-pink-600 bg-pink-200 rounded-lg shadow cursor-pointer border border-pink-600 w-full"
+                className="flex items-center justify-center px-4 py-2 hover:scale-[1.03] duration-200 text-base lg:text-lg font-semibold text-pink-600 bg-pink-200 rounded-lg shadow cursor-pointer border border-pink-600 w-full"
                 onClick={copyImage}
                 title="Use Ctrl/Cmd + C to copy the image"
               >
@@ -532,7 +532,7 @@ export default function Main() {
                 Copy
               </div>
               <div
-                className="flex items-center justify-center px-4 py-2 hover:scale-[1.03] duration-200 text-lg font-semibold bg-pink-600 dark:bg-pink-800 text-pink-200 rounded-lg shadow cursor-pointer border border-pink-600 w-full ml-4"
+                className="flex items-center justify-center px-4 py-2 hover:scale-[1.03] duration-200 text-base lg:text-lg font-semibold bg-pink-600 dark:bg-pink-800 text-pink-200 rounded-lg shadow cursor-pointer border border-pink-600 w-full ml-4"
                 title="Use Ctrl/Cmd + S to save the image"
                 onClick={saveImage}
               >
@@ -546,6 +546,21 @@ export default function Main() {
             >
               <span className="w-4 h-4 mr-1">{ResetIcon}</span>
               Reset
+            </div>
+            <div className="hidden mx-auto text-sm text-center opacity-50 dark:text-white lg:block">
+              <div className="mb-1">
+                Use{" "}
+                <span className="px-2 py-px font-mono rounded-lg dark:bg-black/40 bg-white/80">
+                  Cmd/Ctrl+C
+                </span>{" "}
+                to copy or
+              </div>
+              <div>
+                <span className="px-2 py-px font-mono rounded-lg bg-white/80 dark:bg-black/40">
+                  Cmd/Ctrl+S
+                </span>{" "}
+                to save output image
+              </div>
             </div>
           </div>
         </div>
@@ -573,16 +588,16 @@ export default function Main() {
   };
 
   const RenderMaker = () => (
-    <div className="flex pt-20 text-sm dark:text-gray-400">
+    <div className="lg:absolute lg:bottom-[20px] flex flex-col items-center justify-center pb-5 text-sm lg:pb-0 lg:pt-20 dark:text-gray-400 lg:flex-row opacity-60">
       <a
         href="https://twitter.com/thelifeofrishi"
         target="_blank"
-        className="flex items-center hover:underline"
+        className="flex items-center mb-2 hover:underline lg:mb-0"
       >
         <span className="w-5 h-5 mx-1">{TwitterIcon}</span>
         Created by Rishi Mohan
       </a>
-      <span className="px-2">-</span>
+      <span className="hidden px-2 lg:block">-</span>
       <a
         href="https://github.com/rishimohan/pika"
         target="_blank"
@@ -596,16 +611,16 @@ export default function Main() {
 
   return (
     <div
-      className="flex flex-col items-start justify-start h-screen px-10 min-h-[800px]"
+      className="flex flex-col items-start justify-start h-screen px-5 lg:px-10 min-h-[800px]"
       onPaste={onPaste}
     >
-      <div className="relative flex flex-row-reverse w-full">
-        <div className="w-[300px] xl:w-[350px]">{renderOptions()}</div>
-        <div className="w-[calc(100%-300px)] xl:w-[calc(100%-350px)] p-10 flex flex-col items-center justify-center overflow-y-auto">
+      <div className="relative flex flex-col-reverse w-full lg:flex-row-reverse max-w-[1600px] mx-auto">
+        <div className="w-full lg:w-[350px]">{renderOptions()}</div>
+        <div className="w-full lg:w-[calc(100%-350px)] py-5 lg:p-10 lg:pl-0 flex flex-col-reverse lg:flex-col items-center justify-center overflow-y-auto">
           {blob?.src ? (
             <>
               <div
-                className={`${options?.rounded} overflow-hidden shadow-xl duration-200 ease-in-out`}
+                className={`${options?.rounded} overflow-hidden shadow-xl duration-200 ease-in-out relative my-5`}
               >
                 <div
                   ref={(el) => (wrapperRef.current = el)}
@@ -660,7 +675,7 @@ export default function Main() {
               </div>
             </>
           ) : (
-            <div className="flex items-center justify-center min-h-[70vh]">
+            <div className="flex items-center justify-center min-h-[50vh] lg:min-h-[80vh]">
               <label
                 className="flex flex-col items-center justify-center text-lg opacity-30 select-none max-w-[550px] rounded-2xl p-10 mt-20 text-center dark:text-white cursor-pointer border-2 border-dashed border-gray-400 hover:opacity-50 duration-300"
                 htmlFor="imagesUpload"

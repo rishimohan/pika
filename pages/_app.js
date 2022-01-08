@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps }) {
         />
         <meta
           name="description"
-          content="A free app to quickly beautify your screenshots. You can add background gradients, tweak shadows, add rounded corners and more. You can save the image or copy it to clipboard."
+          content="A free, open-source app to quickly generate beauiful screenshots. Apply backgrounds, tweak shadows, add rounded corners and more. You can save the image or copy it to clipboard."
         />
         <link rel="canonical" href="https://pika.rishimohan.me" />
         <meta property="og:type" content="website" />
@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps }) {
         />
         <meta
           property="og:description"
-          content="A free app to quickly beautify your screenshots. You can add background gradients, tweak shadows, add rounded corners and more. You can save the image or copy it to clipboard."
+          content="A free, open-source app to quickly generate beauiful screenshots. Apply backgrounds, tweak shadows, add rounded corners and more. You can save the image or copy it to clipboard."
         />
         <meta
           property="og:image"
@@ -39,7 +39,7 @@ function MyApp({ Component, pageProps }) {
         />
         <meta
           property="twitter:description"
-          content="A free app to quickly beautify your screenshots. You can add background gradients, tweak shadows, add rounded corners and more. You can save the image or copy it to clipboard."
+          content="A free, open-source app to quickly generate beauiful screenshots. Apply backgrounds, tweak shadows, add rounded corners and more. You can save the image or copy it to clipboard."
         />
         <meta
           property="twitter:image"
