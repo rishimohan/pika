@@ -27,6 +27,7 @@ export default function Main() {
     },
     padding: "p-20",
     rounded: "rounded-xl",
+    roundedWrapper: "rounded-xl",
     shadow: "shadow-xl",
     noise: false,
   });
@@ -453,7 +454,26 @@ export default function Main() {
             </div>
             <div className="flex items-center justify-between w-full">
               <div className="text-sm font-semibold dark:text-white">
-                Rounded Corners
+                Wrapper Rounded Corners
+              </div>
+              <div>
+                <select
+                  value={options.roundedWrapper}
+                  className="px-2 py-1 border border-gray-500 rounded-lg shadow-lg appearance-none cursor-pointer opacity-80 hover:opacity-100"
+                  onChange={(e) =>
+                    setOptions({ ...options, roundedWrapper: e.target.value })
+                  }
+                >
+                  <option value="rounded-none">None</option>
+                  <option value="rounded-lg">Small</option>
+                  <option value="rounded-xl">Medium</option>
+                  <option value="rounded-3xl">Large</option>
+                </select>
+              </div>
+            </div>
+            <div className="flex items-center justify-between w-full">
+              <div className="text-sm font-semibold dark:text-white">
+                Screenshot Rounded Corners
               </div>
               <div>
                 <select
@@ -620,7 +640,7 @@ export default function Main() {
           {blob?.src ? (
             <>
               <div
-                className={`${options?.rounded} overflow-hidden shadow-xl duration-200 ease-in-out relative my-5`}
+                className={`${options?.roundedWrapper} overflow-hidden shadow-xl duration-200 ease-in-out relative my-5`}
               >
                 <div
                   ref={(el) => (wrapperRef.current = el)}
@@ -640,6 +660,7 @@ export default function Main() {
                     options?.aspectRatio,
                     options?.padding,
                     options?.position,
+                    options?.roundedWrapper,
                     { [options?.theme]: !options.customTheme }
                   )}
                 >
