@@ -194,7 +194,8 @@ export default function Main() {
   const onPaste = (event) => {
     var items =
       (event?.clipboardData || event?.originalEvent?.clipboardData)?.items ||
-      event?.target?.files;
+      event?.target?.files ||
+      event.dataTransfer.files;
     var index = 0;
     for (index in items) {
       var item = items[index];
@@ -633,6 +634,13 @@ export default function Main() {
     <div
       className="flex flex-col items-start justify-start h-screen px-5 lg:px-10 min-h-[800px]"
       onPaste={onPaste}
+      onDragOver={(e) => e.preventDefault()}
+      onDragEnter={(e) => e.preventDefault()}
+      onDragLeave={(e) => e.preventDefault()}
+      onDrop={(e) => {
+        e.preventDefault();
+        onPaste(e);
+      }}
     >
       <div className="relative flex flex-col-reverse w-full lg:flex-row-reverse max-w-[1600px] mx-auto">
         <div className="w-full lg:w-[350px]">{renderOptions()}</div>
