@@ -196,7 +196,7 @@ export default function Main() {
     var items =
       (event?.clipboardData || event?.originalEvent?.clipboardData)?.items ||
       event?.target?.files ||
-      event.dataTransfer.files;
+      event?.dataTransfer?.files;
     var index = 0;
     for (index in items) {
       var item = items[index];
@@ -204,7 +204,7 @@ export default function Main() {
         var blob = item?.kind ? item.getAsFile() : item;
         var reader = new FileReader();
         reader.onload = function (event) {
-          setBlob({ ...blob, src: event?.target?.result });
+          setBlob({ ...blob, src: event.target.result });
         };
         reader.readAsDataURL(blob);
       }
@@ -627,8 +627,8 @@ export default function Main() {
     }
   };
 
-  const RenderBrowserBar = () => {
-    switch (options.browserBar) {
+  const renderBrowserBar = () => {
+    switch (options?.browserBar) {
       case "hidden":
         return "";
       case "light":
@@ -720,7 +720,7 @@ export default function Main() {
                     { [options?.theme]: !options.customTheme }
                   )}
                 >
-                  <RenderBrowserBar />
+                  {renderBrowserBar()}
                   {options?.noise ? (
                     <div
                       style={{ backgroundImage: `url("/noise.svg")` }}
