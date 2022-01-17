@@ -771,7 +771,8 @@ export default function Main() {
                   onChange={onPaste}
                 />
                 <span className="w-6 h-6 mb-2">{PasteIcon}</span>
-                <p>Paste your screenshot(Cmd/Ctrl+V) </p>
+                <p>Paste your screenshot(Cmd/Ctrl+V)</p>
+                <p>or drag and drop your screenshot here</p>
                 <p>or click here to add one</p>
               </label>
             </div>
