@@ -204,7 +204,7 @@ export default function Main() {
         var blob = item?.kind ? item.getAsFile() : item;
         var reader = new FileReader();
         reader.onload = function (event) {
-          setBlob({ ...blob, src: event.target.result });
+          setBlob({ ...blob, src: event?.target?.result });
         };
         reader.readAsDataURL(blob);
       }
@@ -628,31 +628,33 @@ export default function Main() {
   };
 
   const RenderBrowserBar = () => {
-    switch(options.browserBar) {
+    switch (options.browserBar) {
       case "hidden":
-        return ""
+        return "";
       case "light":
-      return (
-        <div className="w-full bg-white/80 h-[32px] rounded-t-lg flex items-center px-4">
+        return (
+          <div className="w-full bg-white/80 h-[32px] rounded-t-lg flex items-center px-4">
             <div className="flex items-center space-x-2">
               <div className="w-3 h-3 bg-red-400 rounded-full" />
               <div className="w-3 h-3 bg-yellow-300 rounded-full" />
               <div className="w-3 h-3 bg-green-500 rounded-full" />
             </div>
-        </div>
-      )
+          </div>
+        );
       case "dark":
-      return (
-        <div className="w-full bg-black/40 h-[32px] rounded-t-lg flex items-center px-4">
+        return (
+          <div className="w-full bg-black/40 h-[32px] rounded-t-lg flex items-center px-4">
             <div className="flex items-center space-x-2">
               <div className="w-3 h-3 bg-red-400 rounded-full" />
               <div className="w-3 h-3 bg-yellow-300 rounded-full" />
               <div className="w-3 h-3 bg-green-500 rounded-full" />
             </div>
-        </div>
-      )
+          </div>
+        );
+      case "default":
+        return "";
     }
-  }
+  };
 
   const RenderMaker = () => (
     <div className="lg:absolute lg:bottom-[20px] flex flex-col items-center justify-center pb-5 text-sm lg:pb-0 lg:pt-20 dark:text-gray-400 lg:flex-row opacity-60">
