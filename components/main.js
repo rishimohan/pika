@@ -30,6 +30,7 @@ export default function Main() {
     roundedWrapper: "rounded-xl",
     shadow: "shadow-xl",
     noise: false,
+    browserBar: "hidden",
   });
 
   useEffect(() => {
@@ -373,7 +374,7 @@ export default function Main() {
           )}
         >
           <div className="absolute inset-0 w-full lg:h-full bg-gradient-to-br from-pink-200 dark:from-red-800/40 to-red-100 dark:to-pink-800/60 blur-xl dark:blur-2xl lg:scale-y-[1.05] scale-100 lg:scale-x-[1.1] lg:max-h-[calc(100vh-60px)] transform-gpu" />
-          <div className="relative flex flex-row flex-wrap items-start justify-start space-y-5 lg:items-start lg:flex-col lg:space-y-7">
+          <div className="relative flex flex-row flex-wrap items-start justify-start space-y-5 lg:items-start lg:flex-col lg:space-y-4">
             <div className="flex items-center justify-between w-full">
               <div className="text-sm font-semibold dark:text-white">
                 Aspect Ratio
@@ -388,6 +389,24 @@ export default function Main() {
                 >
                   <option value="aspect-auto">Auto</option>
                   <option value="aspect-square">Square</option>
+                </select>
+              </div>
+            </div>
+            <div className="flex items-center justify-between w-full">
+              <div className="text-sm font-semibold dark:text-white">
+                Browser Wrapper
+              </div>
+              <div>
+                <select
+                  value={options.browserBar}
+                  className="px-2 py-1 border border-gray-500 rounded-lg shadow-lg appearance-none cursor-pointer opacity-80 hover:opacity-100"
+                  onChange={(e) =>
+                    setOptions({ ...options, browserBar: e.target.value })
+                  }
+                >
+                  <option value="hidden">None</option>
+                  <option value="light">Light</option>
+                  <option value="dark">Dark</option>
                 </select>
               </div>
             </div>
@@ -608,6 +627,33 @@ export default function Main() {
     }
   };
 
+  const RenderBrowserBar = () => {
+    switch(options.browserBar) {
+      case "hidden":
+        return ""
+      case "light":
+      return (
+        <div className="w-full bg-white/80 h-[32px] rounded-t-lg flex items-center px-4">
+            <div className="flex items-center space-x-2">
+              <div className="w-3 h-3 bg-red-400 rounded-full" />
+              <div className="w-3 h-3 bg-yellow-300 rounded-full" />
+              <div className="w-3 h-3 bg-green-500 rounded-full" />
+            </div>
+        </div>
+      )
+      case "dark":
+      return (
+        <div className="w-full bg-black/40 h-[32px] rounded-t-lg flex items-center px-4">
+            <div className="flex items-center space-x-2">
+              <div className="w-3 h-3 bg-red-400 rounded-full" />
+              <div className="w-3 h-3 bg-yellow-300 rounded-full" />
+              <div className="w-3 h-3 bg-green-500 rounded-full" />
+            </div>
+        </div>
+      )
+    }
+  }
+
   const RenderMaker = () => (
     <div className="lg:absolute lg:bottom-[20px] flex flex-col items-center justify-center pb-5 text-sm lg:pb-0 lg:pt-20 dark:text-gray-400 lg:flex-row opacity-60">
       <a
@@ -664,7 +710,7 @@ export default function Main() {
                       : {}
                   }
                   className={classnames(
-                    "transition-all duration-200 relative ease-in-out flex items-center justify-center overflow-hidden max-w-[80vw]",
+                    "transition-all duration-200 relative ease-in-out flex items-center justify-center overflow-hidden max-w-[80vw] flex-col",
                     options?.aspectRatio,
                     options?.padding,
                     options?.position,
@@ -672,10 +718,15 @@ export default function Main() {
                     { [options?.theme]: !options.customTheme }
                   )}
                 >
+                  <RenderBrowserBar />
                   {options?.noise ? (
                     <div
                       style={{ backgroundImage: `url("/noise.svg")` }}
-                      className={`absolute inset-0 w-full h-full bg-repeat opacity-[0.15] ${options?.rounded}`}
+                      className={`absolute inset-0 w-full h-full bg-repeat opacity-[0.15] ${
+                        options?.rounded
+                      } ${
+                        options.browserBar !== "hidden" ? "rounded-t-none" : ""
+                      }`}
                     />
                   ) : (
                     ""
@@ -691,7 +742,9 @@ export default function Main() {
                     }
                     className={`relative z-10s transition-all duration-200 ease-in-out ${
                       options?.shadow
-                    } ${options?.rounded} ${getImageRadius()}`}
+                    } ${options?.rounded} ${getImageRadius()} ${
+                      options?.browserBar == "hidden" ? "" : "rounded-t-none"
+                    }`}
                     onLoad={(e) => {
                       setBlob({
                         ...blob,
