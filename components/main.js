@@ -126,7 +126,7 @@ export default function Main() {
           .then(async (data) => {
             var a = document.createElement("A");
             a.href = data;
-            a.download = `pika-1.png`;
+            a.download = `pika-${new Date().toISOString()}.png`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
