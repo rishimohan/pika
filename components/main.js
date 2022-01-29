@@ -634,7 +634,7 @@ export default function Main() {
         return "";
       case "light":
         return (
-          <div className="w-full bg-white/80 h-[32px] rounded-t-lg flex items-center px-4">
+          <div className="flex items-center w-full px-4 py-[10px] rounded-t-lg bg-white/80">
             <div className="flex items-center space-x-2">
               <div className="w-3 h-3 bg-red-400 rounded-full" />
               <div className="w-3 h-3 bg-yellow-300 rounded-full" />
@@ -644,7 +644,7 @@ export default function Main() {
         );
       case "dark":
         return (
-          <div className="w-full bg-black/40 h-[32px] rounded-t-lg flex items-center px-4">
+          <div className="flex items-center w-full px-4 py-[10px] rounded-t-lg bg-black/40">
             <div className="flex items-center space-x-2">
               <div className="w-3 h-3 bg-red-400 rounded-full" />
               <div className="w-3 h-3 bg-yellow-300 rounded-full" />
