@@ -10,22 +10,22 @@ function MyApp({ Component, pageProps }) {
         <title>Pika – Create beautiful screenshots quickly</title>
         <meta
           name="title"
-          content="Pika – Create beautiful screenshots quickly"
+          content="Pika – Create screenshots and browser mockups quickly"
         />
         <meta
           name="description"
-          content="A free, open-source app to quickly generate beauiful screenshots. Apply backgrounds, tweak shadows, add rounded corners and more. You can save the image or copy it to clipboard."
+          content="Quickly generate browser mockups and screenshots with Pika, a free and open-source app. You can add gradient backgrounds, add browser frame,rounded corners and more."
         />
         <link rel="canonical" href="https://pika.rishimohan.me" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://pika.rishimohan.me" />
         <meta
           property="og:title"
-          content="Pika – Create beautiful screenshots quickly"
+          content="Pika – Create screenshots and browser mockups quickly"
         />
         <meta
           property="og:description"
-          content="A free, open-source app to quickly generate beauiful screenshots. Apply backgrounds, tweak shadows, add rounded corners and more. You can save the image or copy it to clipboard."
+          content="Quickly generate browser mockups and screenshots with Pika, a free and open-source app. You can add gradient backgrounds, add browser frame,rounded corners and more."
         />
         <meta
           property="og:image"
@@ -35,18 +35,22 @@ function MyApp({ Component, pageProps }) {
         <meta property="twitter:url" content="https://pika.rishimohan.me" />
         <meta
           property="twitter:title"
-          content="Pika – Create beautiful screenshots quickly"
+          content="Pika – Create screenshots and browser mockups quickly"
         />
         <meta
           property="twitter:description"
-          content="A free, open-source app to quickly generate beauiful screenshots. Apply backgrounds, tweak shadows, add rounded corners and more. You can save the image or copy it to clipboard."
+          content="Quickly generate browser mockups and screenshots with Pika, a free and open-source app. You can add gradient backgrounds, add browser frame,rounded corners and more."
         />
         <meta
           property="twitter:image"
           content="https://pika.rishimohan.me/meta-image.png"
         />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin={true} />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin={true}
+        />
         <link
           href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700;900&display=swap"
           rel="stylesheet"
