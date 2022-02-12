@@ -32,11 +32,6 @@ Stylings are done using mix of inline CSS and Tailwind CSS.
 - Add shadow to screenshot
 - Add noise to background to add RAW vibes
 
-## Build using
-
-- Next.js
-- TailwindCSS
-
 ## Setting up the app
 
 First, run the development server:
@@ -46,3 +41,8 @@ First, run the development server:
 - Run dev server with `yarn dev`
 - Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 - File located at `/components/main` contains the code for canvas and the stylings
+
+## Built using
+
+- Next.js
+- TailwindCSS
