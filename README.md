@@ -31,6 +31,11 @@ Stylings are done using mix of inline CSS and Tailwind CSS.
 - Control screenshot position in canvas, add padding
 - Add shadow to screenshot
 - Add noise to background to add RAW vibes
+- Add overlay text($$)
+- Add image as background($$)
+- Add custom watermark($$)
+
+`($$)` are paid features and not available in this repo's code.
 
 ## Setting up the app
 
