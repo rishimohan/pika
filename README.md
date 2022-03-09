@@ -51,3 +51,7 @@ First, run the development server:
 
 - Next.js
 - TailwindCSS
+
+## License
+
+[Here](https://github.com/rishimohan/pika/blob/main/license.txt)
