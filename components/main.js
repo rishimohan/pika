@@ -126,7 +126,7 @@ export default function Main() {
           .then(async (data) => {
             var a = document.createElement("A");
             a.href = data;
-            a.download = `pika-${new Date().toISOString()}.png`;
+            a.download = `nest-${new Date().toISOString()}.png`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -660,30 +660,32 @@ export default function Main() {
   const RenderMaker = () => (
     <div className="lg:absolute lg:bottom-[20px] flex flex-col items-center justify-center pb-5 text-sm lg:pb-0 lg:pt-20 dark:text-gray-400 lg:flex-row opacity-60">
       <a
-        href="https://twitter.com/thelifeofrishi"
+        href=""
         target="_blank"
         className="flex items-center hover:underline"
       >
         <span className="w-5 h-5 mx-1">{TwitterIcon}</span>
-        Created by Rishi Mohan
+        Created by NullFasttero.
       </a>
+
       <span className="hidden px-2 lg:block">-</span>
       <a
-        href="https://github.com/rishimohan/pika"
+        href="https://pika.style/"
+        target="_blank"
+        className="flex items-center mt-2 hover:underline lg:mt-0"
+      >
+        
+        Inspired in Pika.
+      </a>
+
+      <span className="hidden px-2 lg:block">-</span>
+      <a
+        href="https://github.com/HugoFastDEV/nest"
         target="_blank"
         className="flex items-center mt-2 hover:underline lg:mt-0"
       >
         <span className="w-5 h-5 mx-1">{GithubIcon}</span>
         View Code on Github
-      </a>
-      <span className="hidden px-2 lg:block">-</span>
-      <a
-        href="https://www.buymeacoffee.com/thelifeofrishi"
-        target="_blank"
-        className="flex items-center mt-2 hover:underline lg:mt-0"
-      >
-        <span className="w-5 h-5 mx-1">{CoffeeIcon}</span>
-        Buy me a coffee
       </a>
     </div>
   );

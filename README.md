@@ -1,32 +1,28 @@
-NOTE: This repo contains free version features.
+## What is Nest?
 
-![image](https://user-images.githubusercontent.com/14031295/170217467-01249753-6213-40c1-87b6-c39aa762f6cf.png)
-
-## What is Pika?
-
-Pika is a web app to transform RAW screenshots 
+Nest is a web app to transform RAW screenshots 
 into beautiful images, which you would be proud to share
 on your landing pages, emails, Twitter or marketing pages.
 
-The main goal behind Pika is to fasten this process
+The main goal behind Nest is to fasten this process
 of designing screenshots.
 
-## How Pika works?
+## How Nest works?
 
-Pika uses `dom-to-image` to generate an image from
+Nest uses `dom-to-image` to generate an image from
 a DOM element. The DOM element is the canvas 
 with your screenshot and all the stylings.
 Stylings are done using mix of inline CSS and Tailwind CSS.
 
-## How Pika makes designing screenshot quick?
+## How Nest makes designing screenshot quick?
 
-- Pika saves your options locally on your machine, so when you open the app next time it keeps your previous settings
-- Pika gives you shortcuts: 
+- Nest saves your options locally on your machine, so when you open the app next time it keeps your previous settings
+- Nest gives you shortcuts: 
   - Ctrl/Cmd+V: paste a screenshot
   - Ctrl/Cmd+C: copy the output image
   - Ctrl/Cmd+S: save the output image
 
-## What all you can do with Pika?
+## What all you can do with Nest?
 
 - Apply rounded corners to your screenshot
 - Apply background gradients
@@ -54,6 +50,4 @@ First, run the development server:
 - Next.js
 - TailwindCSS
 
-## License
-
-[Here](https://github.com/rishimohan/pika/blob/main/license.txt)
+## Based on: Pika

@@ -7,43 +7,43 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>Pika – Create beautiful screenshots quickly</title>
+        <title>Nest – Create beautiful screenshots quickly</title>
         <meta
           name="title"
-          content="Pika – Create screenshots and browser mockups quickly"
+          content="Nest – Create screenshots and browser mockups quickly"
         />
         <meta
           name="description"
-          content="Quickly generate browser mockups and screenshots with Pika, a free and open-source app. You can add gradient backgrounds, add browser frame,rounded corners and more."
+          content="Quickly generate browser mockups and screenshots with Nest, a free and open-source app. You can add gradient backgrounds, add browser frame,rounded corners and more."
         />
-        <link rel="canonical" href="https://pika.rishimohan.me" />
+        <link rel="canonical" href="https://nest.nullteam.fun" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://pika.rishimohan.me" />
+        <meta property="og:url" content="https://nest.nullteam.fun" />
         <meta
           property="og:title"
-          content="Pika – Create screenshots and browser mockups quickly"
+          content="Nest – Create screenshots and browser mockups quickly"
         />
         <meta
           property="og:description"
-          content="Quickly generate browser mockups and screenshots with Pika, a free and open-source app. You can add gradient backgrounds, add browser frame,rounded corners and more."
+          content="Quickly generate browser mockups and screenshots with Nest, a free and open-source app. You can add gradient backgrounds, add browser frame,rounded corners and more."
         />
         <meta
           property="og:image"
-          content="https://pika.rishimohan.me/meta-image.png"
+          content="https://nest.nullteam.fun/meta-image.png"
         />
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://pika.rishimohan.me" />
+        <meta property="twitter:url" content="https://nest.nullteam.fun" />
         <meta
           property="twitter:title"
-          content="Pika – Create screenshots and browser mockups quickly"
+          content="Nest – Create screenshots and browser mockups quickly"
         />
         <meta
           property="twitter:description"
-          content="Quickly generate browser mockups and screenshots with Pika, a free and open-source app. You can add gradient backgrounds, add browser frame,rounded corners and more."
+          content="Quickly generate browser mockups and screenshots with Nest, a free and open-source app. You can add gradient backgrounds, add browser frame,rounded corners and more."
         />
         <meta
           property="twitter:image"
-          content="https://pika.rishimohan.me/meta-image.png"
+          content="https://nest.nullteam.fun/meta-image.png"
         />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
