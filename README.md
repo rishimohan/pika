@@ -57,3 +57,13 @@ First, run the development server:
 ## License
 
 [Here](https://github.com/rishimohan/pika/blob/main/license.txt)
+
+## Assets
+
+Logo
+
+![pika-logo-500x500](https://user-images.githubusercontent.com/14031295/178440549-a51aebb5-3fad-47d1-bfc6-865c494ecb0a.png)
+
+Banner
+
+![pika-banner-1000x-500](https://user-images.githubusercontent.com/14031295/178440576-c6af80d8-081f-4f28-be28-a619ac292089.png)
