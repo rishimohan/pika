@@ -60,10 +60,17 @@ First, run the development server:
 
 ## Assets
 
-Logo
+![pika-filled-circle](https://user-images.githubusercontent.com/14031295/198069686-4b0853cf-f11f-4aab-9ceb-08c37f61a459.png)
 
-![pika-logo-500x500](https://user-images.githubusercontent.com/14031295/178440549-a51aebb5-3fad-47d1-bfc6-865c494ecb0a.png)
+![pika-filled-squared](https://user-images.githubusercontent.com/14031295/198069703-200c155f-5a17-4509-a871-4af73b36439b.png)
 
-Banner
+![pika-light-squared](https://user-images.githubusercontent.com/14031295/198069719-690c9c96-707c-4cb7-a36a-1ae158fd3162.png)
 
-![pika-banner-1000x-500](https://user-images.githubusercontent.com/14031295/178440576-c6af80d8-081f-4f28-be28-a619ac292089.png)
+![pika-light-circle](https://user-images.githubusercontent.com/14031295/198069722-2cc9327b-50e4-473b-b4e9-b3901425ce96.png)
+
+![main](https://user-images.githubusercontent.com/14031295/198069866-04289088-0cd7-4db7-bfe3-a71d7f81c8b8.png)
+
+![og](https://user-images.githubusercontent.com/14031295/198069875-a523ee42-f6bb-4a3e-b198-8040d970f673.png)
+
+![templates](https://user-images.githubusercontent.com/14031295/198069879-f62cb9c2-4277-40fc-a925-5a714d7a1928.png)
+
