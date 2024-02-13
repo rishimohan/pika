@@ -1,3 +1,3 @@
-1. If you're using Pika commercially(and making money with wherever you're using it), you'll need to get a licence for it. Please email hi@rishimohan.me to know more about it
+1. If you want to use Pika commercially, you can do so using [Pika Embed](https://pika.style/products/embed)
 
-2. If you're using Pika for learning purposes, personal use or for inspiration, you don't need to do anything
+2. If you're using Pika for learning purposes or inspiration, you don't need to do anything, considering you're running it locally
